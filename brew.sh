@@ -54,6 +54,7 @@ brew cask install telegram
 
 # Files and documents
 brew cask install adobe-acrobat-reader
+brew cask install commander-one
 brew cask install double-commander
 brew cask install google-backup-and-sync
 

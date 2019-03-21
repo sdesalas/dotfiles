@@ -54,3 +54,22 @@ nvm alias default 8.6
 
 # Install YARN
 brew install yarn
+
+# -----------------------------------------------------------------------------
+# Install GUI apps
+
+# Browsers
+brew cask install firefox
+brew cask install firefox-developer-edition
+brew cask install google-chrome
+brew cask install google-chrome-canary
+brew cask install opera
+
+# Terminals
+brew cask install hyper
+brew cask install iterm2
+
+# Editors and IDEs
+brew cask install atom
+brew cask install jetbrains-toolbox
+brew cask install visual-studio-code

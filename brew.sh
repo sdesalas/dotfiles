@@ -69,6 +69,7 @@ brew cask install grammarly
 brew cask install notion
 brew cask install numi
 brew cask install pluralsight
+brew cask install purevpn
 brew cask install puush
 brew cask install recordit
 brew cask install vlc

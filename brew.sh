@@ -14,6 +14,7 @@ fi
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 echo "Homebrew :: Adding taps"
+brew tap caskroom/fonts
 brew tap caskroom/versions
 
 echo "Homebrew :: Updating"
@@ -23,7 +24,7 @@ brew upgrade
 export HOMEBREW_NO_AUTO_UPDATE=0
 
 # ------------------------------------------------------------------------------
-# Install essential CLI tools
+# Install essentials
 
 # Git
 brew install git && brew link --force git
@@ -36,6 +37,9 @@ brew install jq
 brew install mackup
 brew install mtr
 brew install wget
+
+# Fonts
+brew cask install font-hack-nerd-font
 
 # ------------------------------------------------------------------------------
 # Install GUI apps
@@ -157,3 +161,8 @@ brew install python3
 # Install Go
 
 brew install go
+
+# ------------------------------------------------------------------------------
+# Cleanup Brew packages
+
+brew cleanup

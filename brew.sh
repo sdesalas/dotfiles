@@ -38,7 +38,15 @@ brew install mackup
 brew install mtr
 brew install wget
 
-# Fonts
+# ------------------------------------------------------------------------------
+# Customize shell and terminal
+
+# ZSH
+brew install zsh
+brew install antigen
+
+# Terminal
+brew cask install iterm2
 brew cask install font-hack-nerd-font
 
 # ------------------------------------------------------------------------------
@@ -82,10 +90,6 @@ brew cask install xtorrent
 # ------------------------------------------------------------------------------
 # Install dev tools
 
-# Terminals
-brew cask install hyper
-brew cask install iterm2
-
 # Editors and IDEs
 brew cask install atom
 brew cask install jetbrains-toolbox
@@ -128,7 +132,7 @@ if [[ $(command -v nvm) == "" ]]; then
     NVM_VERSION=0.34.0
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v$NVM_VERSION/install.sh | bash
 
-    echo "NVM :: Making it useable in the current terminal session"
+    echo "NVM :: Making it useable right away"
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

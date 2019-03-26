@@ -69,6 +69,7 @@ brew cask install adobe-acrobat-reader
 brew cask install commander-one
 brew cask install double-commander
 brew cask install google-backup-and-sync
+brew cask install yandex-disk
 
 # Misc tools
 brew cask install 1password6

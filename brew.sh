@@ -33,8 +33,10 @@ brew install git-lfs
 git lfs install
 
 # Utils
+brew install httpie
 brew install jq
 brew install mackup
+brew install mitmproxy
 brew install mtr
 brew install wget
 

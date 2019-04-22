@@ -9,10 +9,11 @@ mkdir -p $DOWNLOADS
 
 # ------------------------------------------------------------------------------
 # Download iTerm2 color schemes
+# https://github.com/martinlindhe/base16-iterm2
 
 export CSCHEMES_DIR="$DOWNLOADS/color-schemes"
 export CSCHEMES_ZIP="$DOWNLOADS/color-schemes.zip"
-export CSCHEMES_URL="https://github.com/mbadolato/iTerm2-Color-Schemes/zipball/master"
+export CSCHEMES_URL="https://github.com/martinlindhe/base16-iterm2/archive/master.zip"
 
 curl -o $CSCHEMES_ZIP -L $CSCHEMES_URL
 unzip -a $CSCHEMES_ZIP -d $CSCHEMES_DIR

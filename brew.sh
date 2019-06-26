@@ -118,6 +118,7 @@ brew cask install wireshark
 brew cask install docker
 brew cask install google-cloud-sdk
 brew install awscli
+brew install aws-iam-authenticator
 brew install kubernetes-helm
 brew install terraform
 

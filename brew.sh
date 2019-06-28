@@ -14,8 +14,8 @@ fi
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 echo "Homebrew :: Adding taps"
-brew tap caskroom/fonts
-brew tap caskroom/versions
+brew tap homebrew/cask-fonts
+brew tap homebrew/cask-versions
 
 echo "Homebrew :: Updating"
 brew update
@@ -46,6 +46,9 @@ brew install wget
 # ZSH
 brew install zsh
 brew install antigen
+
+# https://rick.cogley.info/post/use-homebrew-zsh-instead-of-the-osx-default/
+sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
 
 # Terminal
 brew cask install iterm2
@@ -153,13 +156,16 @@ brew install yarn
 # ------------------------------------------------------------------------------
 # Install Java
 
-brew cask install java8
+# Not available anymore:
+# brew cask install java8
+
+# Consider using http://www.jenv.be
 
 # ------------------------------------------------------------------------------
 # Install Scala
 
-brew install scala
-brew install sbt
+# brew install scala
+# brew install sbt
 
 # ------------------------------------------------------------------------------
 # Install Python

@@ -28,12 +28,11 @@ unzip -a $CSCHEMES_ZIP -d $CSCHEMES_DIR
 # Set up "Nerd Fonts"
 
 # Install them
-brew tap caskroom/fonts
+brew tap homebrew/cask-fonts
 brew cask install font-hack-nerd-font
 
 # They can be found in ~/Library/Fonts:
-#   $ cd ~/Library/Fonts
-#   $ ls
+#   $ ls -la ~/Library/Fonts
 #   Hack Italic Nerd Font Complete.ttf
 #   Hack Regular Nerd Font Complete.ttf
 #   Hack Bold Italic Nerd Font Complete.ttf

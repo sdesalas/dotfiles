@@ -5,6 +5,7 @@ christian-kohler.npm-intellisense
 christian-kohler.path-intellisense
 cmstead.jsrefactor
 codezombiech.gitignore
+dariofuzinato.vue-peek
 DavidAnson.vscode-markdownlint
 dbaeumer.vscode-eslint
 deerawan.vscode-dash
@@ -26,9 +27,11 @@ ms-vscode.azure-account
 ms-vscode.vscode-typescript-tslint-plugin
 msjsdiag.debugger-for-chrome
 nwhatt.chai-snippets
+octref.vetur
 PeterJausovec.vscode-docker
 sbrink.elm
 scala-lang.scala
+sdras.vue-vscode-snippets
 spoonscen.es6-mocha-snippets
 waderyan.nodejs-extension-pack
 WallabyJs.quokka-vscode

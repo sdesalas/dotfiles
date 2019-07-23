@@ -78,6 +78,7 @@ brew cask install yandex-disk
 
 # Misc tools
 brew cask install 1password6
+brew cask install airserver
 brew cask install calibre
 brew cask install grammarly
 brew cask install notion
@@ -146,9 +147,11 @@ if [[ $(command -v nvm) == "" ]]; then
 fi
 
 # Install Node.js
-nvm install node
-nvm install 8.6
-nvm alias default 8.6
+nvm install stable  # latest stable version
+nvm install 10.15.3 # for MSB
+nvm install 8.6     # for balkan
+nvm alias default stable
+nvm use stable
 
 # Install YARN
 brew install yarn

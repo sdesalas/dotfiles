@@ -1,0 +1,4 @@
+[include]
+	path = ~/.dotfiles/configs/git/.gitconfig-common.properties
+[includeIf "gitdir:~/Code/msb/"]
+	path = ~/.dotfiles/configs/git/.gitconfig-msb.properties

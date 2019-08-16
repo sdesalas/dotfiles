@@ -101,6 +101,7 @@ brew cask install xtorrent
 brew cask install atom
 brew cask install jetbrains-toolbox
 brew cask install visual-studio-code
+brew cask install typora
 
 # Git-related stuff
 brew cask install gitify

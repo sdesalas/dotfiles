@@ -1,4 +1,5 @@
 AlanWalk.markdown-toc
+alefragnani.bookmarks
 arcticicestudio.nord-visual-studio-code
 be5invis.vscode-icontheme-nomo-dark
 christian-kohler.npm-intellisense
@@ -10,6 +11,7 @@ DavidAnson.vscode-markdownlint
 dbaeumer.vscode-eslint
 deerawan.vscode-dash
 deerawan.vscode-faker
+drknoxy.eslint-disable-snippets
 eamodio.gitlens
 EditorConfig.EditorConfig
 eg2.vscode-npm-script
@@ -23,16 +25,17 @@ k--kato.intellij-idea-keybindings
 mauve.terraform
 mdickin.markdown-shortcuts
 mindginative.terraform-snippets
+ms-azuretools.vscode-docker
 ms-vscode.azure-account
 ms-vscode.vscode-typescript-tslint-plugin
 msjsdiag.debugger-for-chrome
 nwhatt.chai-snippets
 octref.vetur
-PeterJausovec.vscode-docker
 sbrink.elm
 scala-lang.scala
 sdras.vue-vscode-snippets
 spoonscen.es6-mocha-snippets
+sysoev.language-stylus
 waderyan.nodejs-extension-pack
 WallabyJs.quokka-vscode
 wayou.vscode-todo-highlight

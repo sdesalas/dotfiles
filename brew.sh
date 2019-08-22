@@ -69,6 +69,10 @@ brew cask install skype
 brew cask install slack
 brew cask install telegram
 
+# Productivity
+brew cask install ticktick
+brew cask install notion
+
 # Files and documents
 brew cask install adobe-acrobat-reader
 brew cask install commander-one
@@ -78,10 +82,8 @@ brew cask install yandex-disk
 
 # Misc tools
 brew cask install 1password6
-brew cask install airserver
 brew cask install calibre
 brew cask install grammarly
-brew cask install notion
 brew cask install numi
 brew cask install pluralsight
 brew cask install purevpn

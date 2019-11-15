@@ -79,6 +79,7 @@ brew cask install commander-one
 brew cask install double-commander
 brew cask install google-backup-and-sync
 brew cask install yandex-disk
+brew cask install megasync
 
 # Misc tools
 brew cask install 1password6
@@ -95,6 +96,9 @@ brew cask install vlc
 brew cask install qbittorrent
 brew cask install webtorrent
 brew cask install xtorrent
+
+# Music making
+brew cask install native-access
 
 # ------------------------------------------------------------------------------
 # Install dev tools
@@ -153,8 +157,8 @@ fi
 nvm install stable  # latest stable version
 nvm install 10.15.3 # for MSB
 nvm install 8.6     # for balkan
-nvm alias default stable
-nvm use stable
+nvm alias default 10.15.3
+nvm use 10.15.3
 
 # Install YARN
 brew install yarn

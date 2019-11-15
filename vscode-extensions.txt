@@ -40,4 +40,5 @@ waderyan.nodejs-extension-pack
 WallabyJs.quokka-vscode
 wayou.vscode-todo-highlight
 wix.vscode-import-cost
+wmaurer.change-case
 xabikos.JavaScriptSnippets

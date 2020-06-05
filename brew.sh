@@ -15,6 +15,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 
 echo "Homebrew :: Adding taps"
 brew tap homebrew/cask-fonts
+brew tap homebrew/cask-drivers
 brew tap homebrew/cask-versions
 
 echo "Homebrew :: Updating"
@@ -99,6 +100,9 @@ brew cask install xtorrent
 
 # Music making
 brew cask install native-access
+
+# Drivers
+brew cask install logitech-options
 
 # ------------------------------------------------------------------------------
 # Install dev tools

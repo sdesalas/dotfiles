@@ -73,15 +73,18 @@ ssh-add -K $SSH_KEY_PATH_BANDERROR
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Git. Extend / override https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
-alias gst="git status"
-alias gbr="git branch"
-alias gco="git checkout"
-alias gcob="git checkout -b"
-alias gaa="git add -A"
-alias gcm="git commit -m"
-alias gam="git commit --amend --no-edit"
-alias gcam="git add -A && git commit --amend --no-edit"
-alias gcmt="git add -A && git commit -m \"Temp\""
+# These are aliases to git aliases. See configs/git/.gitconfig-common.properties
+alias gst="git st"
+alias gbr="git br"
+alias gco="git co"
+alias gcob="git cob"
+alias gcb="git cb"
+alias gaa="git aa"
+alias gcm="git cm"
+alias gam="git amend"
+alias gca="git ca"
+alias gct="git ct"
+alias gu="git up"
 
 # NPM. Extend / override https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/npm
 alias nd="npm dev"

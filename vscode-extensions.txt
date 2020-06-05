@@ -24,6 +24,7 @@ jock.svg
 k--kato.intellij-idea-keybindings
 mauve.terraform
 mdickin.markdown-shortcuts
+mhutchie.git-graph
 mindginative.terraform-snippets
 ms-azuretools.vscode-docker
 ms-vscode.azure-account

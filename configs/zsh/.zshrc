@@ -26,17 +26,18 @@ antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh)
 # https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins-Overview
-antigen bundle git
-antigen bundle command-not-found
-antigen bundle osx
 antigen bundle brew
+antigen bundle command-not-found
 antigen bundle docker
 antigen bundle docker-compose
+antigen bundle git
 antigen bundle node
 antigen bundle npm
 antigen bundle nvm
+antigen bundle osx
 antigen bundle sbt
 antigen bundle scala
+antigen bundle yarn
 
 # Other bundles
 antigen bundle zsh-users/zsh-autosuggestions
@@ -70,6 +71,31 @@ ssh-add -K $SSH_KEY_PATH_BANDERROR
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Git. Extend / override https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
+alias gst="git status"
+alias gbr="git branch"
+alias gco="git checkout"
+alias gcob="git checkout -b"
+alias gaa="git add -A"
+alias gcm="git commit -m"
+alias gam="git commit --amend --no-edit"
+alias gcam="git add -A && git commit --amend --no-edit"
+alias gcmt="git add -A && git commit -m \"Temp\""
+
+# NPM. Extend / override https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/npm
+alias nd="npm dev"
+alias nb="npm build"
+alias ns="npm start"
+alias nl="npm lint"
+alias nt="npm test"
+
+# Yarn. Extend / override https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/yarn
+alias yd="yarn dev"
+alias yb="yarn build"
+alias ys="yarn start"
+alias yl="yarn lint"
+alias yt="yarn test"
 
 # ------------------------------------------------------------------------------
 # Google Cloud SDK

@@ -95,8 +95,9 @@ alias nt="npm test"
 
 # Yarn. Extend / override https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/yarn
 alias yd="yarn dev"
+alias ys="yarn serve"
 alias yb="yarn build"
-alias ys="yarn start"
+alias yst="yarn start"
 alias yl="yarn lint"
 alias yt="yarn test"
 

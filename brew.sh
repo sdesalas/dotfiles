@@ -158,11 +158,13 @@ if [[ $(command -v nvm) == "" ]]; then
 fi
 
 # Install Node.js
-nvm install stable  # latest stable version
-nvm install 10.15.3 # for MSB
-nvm install 8.6     # for balkan
-nvm alias default 10.15.3
-nvm use 10.15.3
+nvm install stable
+nvm install 12.18.1
+nvm install 10.15.3
+nvm install 8.6
+nvm alias default 12.18.1
+nvm use default
+nvm ls
 
 # Install YARN
 brew install yarn

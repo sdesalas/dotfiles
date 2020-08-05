@@ -1,18 +1,7 @@
 # dotfiles
 
-Just personal dotfiles. No plans to make it easily reusable, configurable, extendable or adjustable for a wide audience.
+🚧 Work in progress 🚧
 
-🚧🚧🚧 Work in progress <br/>
-🚧🚧🚧 Far from perfection 😂
+Just a bunch of personal dotfiles for MacOS and Windows.
 
-## TODO
-
-Set up installation / configuration / backup and restore for:
-
-- ✔️ CLI tools and GUI apps via Homebrew
-- ✔️ VS Code extensions
-- ZSH and iTerm
-- Dotfiles themselves
-- OS X settings
-- Secrets
-- Application settings via [Mackup](https://github.com/lra/mackup)
+Not intended to be reusable, configurable or extendable.

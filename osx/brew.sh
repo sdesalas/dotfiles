@@ -34,118 +34,25 @@ brew install git-lfs
 git lfs install
 
 # Utils
-brew install httpie
+brew install wget
 brew install jq
-brew install mackup
+brew install httpie
 brew install mitmproxy
 brew install mtr
-brew install wget
 
 # ------------------------------------------------------------------------------
-# Customize shell and terminal
+# Customize shell
 
-# ZSH
 brew install zsh
 brew install antigen
 
 # https://rick.cogley.info/post/use-homebrew-zsh-instead-of-the-osx-default/
 sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
 
-# Terminal
-brew cask install iterm2
-brew cask install font-hack-nerd-font
-
 # ------------------------------------------------------------------------------
-# Install GUI apps
+# Install languages and platforms
 
-# Browsers
-brew cask install firefox
-brew cask install firefox-developer-edition
-brew cask install google-chrome
-brew cask install google-chrome-canary
-brew cask install opera
-
-# Messengers
-brew cask install skype
-brew cask install slack
-brew cask install telegram
-
-# Productivity
-brew cask install ticktick
-brew cask install notion
-
-# Files and documents
-brew cask install adobe-acrobat-reader
-brew cask install commander-one
-brew cask install double-commander
-brew cask install google-backup-and-sync
-brew cask install yandex-disk
-brew cask install megasync
-
-# Misc tools
-brew cask install 1password6
-brew cask install calibre
-brew cask install grammarly
-brew cask install numi
-brew cask install pluralsight
-brew cask install purevpn
-brew cask install puush
-brew cask install recordit
-brew cask install vlc
-
-# Torrent clients
-brew cask install qbittorrent
-brew cask install webtorrent
-brew cask install xtorrent
-
-# Music making
-brew cask install native-access
-
-# Drivers
-brew cask install logitech-options
-
-# ------------------------------------------------------------------------------
-# Install dev tools
-
-# Editors and IDEs
-brew cask install atom
-brew cask install jetbrains-toolbox
-brew cask install visual-studio-code
-brew cask install typora
-
-# Git-related stuff
-brew cask install gitify
-brew cask install gitkraken
-brew cask install sourcetree
-
-# Security
-brew cask install gpg-suite
-brew cask install suspicious-package
-
-# Networking
-brew cask install charles
-brew cask install insomnia
-brew cask install ngrok
-brew cask install postman
-brew cask install wireshark
-
-# Containers and clouds
-brew cask install docker
-brew cask install google-cloud-sdk
-brew install awscli
-brew install aws-iam-authenticator
-brew install kubernetes-helm
-brew install terraform
-
-# Misc tools
-brew cask install browserstacklocal
-brew cask install dash
-brew cask install robo-3t
-
-# ------------------------------------------------------------------------------
-# Install Node.js
-
-# Install NVM
+# NVM
 if [[ $(command -v nvm) == "" ]]; then
     echo "NVM :: Installing"
     NVM_VERSION=0.34.0
@@ -157,7 +64,7 @@ if [[ $(command -v nvm) == "" ]]; then
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
 
-# Install Node.js
+# Node
 nvm install stable
 nvm install 12.18.1
 nvm install 10.15.3
@@ -166,32 +73,82 @@ nvm alias default 12.18.1
 nvm use default
 nvm ls
 
-# Install YARN
+# Yarn
 brew install yarn
 
-# ------------------------------------------------------------------------------
-# Install Java
-
-# Not available anymore:
-# brew cask install java8
-
-# Consider using http://www.jenv.be
-
-# ------------------------------------------------------------------------------
-# Install Scala
-
-# brew install scala
-# brew install sbt
-
-# ------------------------------------------------------------------------------
-# Install Python
-
+# Misc languages
+brew install go
 brew install python3
 
 # ------------------------------------------------------------------------------
-# Install Go
+# Install dev tools
 
-brew install go
+brew cask install iterm2
+brew cask install font-hack-nerd-font
+brew cask install visual-studio-code
+brew cask install jetbrains-toolbox
+brew cask install typora
+
+brew cask install gitkraken
+brew cask install sourcetree
+brew cask install gitify
+
+brew cask install docker
+brew cask install google-cloud-sdk
+brew install awscli
+brew install aws-iam-authenticator
+brew install kubernetes-helm
+brew install terraform
+
+brew cask install dash
+brew cask install robo-3t
+brew cask install browserstacklocal
+brew cask install postman
+brew cask install insomnia
+brew cask install charles
+brew cask install wireshark
+brew cask install ngrok
+brew cask install gpg-suite
+brew cask install suspicious-package
+
+# ------------------------------------------------------------------------------
+# Install other apps
+
+brew cask install commander-one
+brew cask install ticktick
+brew cask install notion
+brew cask install numi
+brew cask install purevpn
+
+# brew cask install google-chrome
+brew cask install google-chrome-canary
+brew cask install firefox
+brew cask install firefox-developer-edition
+brew cask install opera
+
+brew cask install slack
+brew cask install skype
+brew cask install telegram
+
+brew cask install adobe-acrobat-reader
+brew cask install megasync
+brew cask install 1password6
+brew cask install calibre
+brew cask install grammarly
+brew cask install pluralsight
+brew cask install puush
+brew cask install qbittorrent
+brew cask install recordit
+brew cask install vlc
+brew cask install logitech-options
+brew cask install native-access
+
+# ------------------------------------------------------------------------------
+# Restore apps' configurations
+
+# https://github.com/lra/mackup
+brew install mackup
+mackup restore
 
 # ------------------------------------------------------------------------------
 # Cleanup Brew packages

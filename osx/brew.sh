@@ -1,11 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env zsh
+
+# Ask for the administrator password upfront
+sudo -v
+
+# Keep-alive: update existing `sudo` timestamp until the script has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # ------------------------------------------------------------------------------
 # Check if Homebrew is installed, and install if it's not
+# https://brew.sh/
 
 if [[ $(command -v brew) == "" ]]; then
     echo "Homebrew :: Installing"
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
 # ------------------------------------------------------------------------------
@@ -49,19 +56,22 @@ brew install antigen
 # https://rick.cogley.info/post/use-homebrew-zsh-instead-of-the-osx-default/
 sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
 
+# https://github.com/zsh-users/zsh-completions/issues/433
+# https://github.com/zsh-users/zsh-completions/issues/433#issuecomment-680128428
+compaudit | xargs chmod g-w
+
 # ------------------------------------------------------------------------------
 # Install languages and platforms
 
 # NVM
 if [[ $(command -v nvm) == "" ]]; then
     echo "NVM :: Installing"
-    NVM_VERSION=0.34.0
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v$NVM_VERSION/install.sh | bash
+    NVM_VERSION=0.36.0
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v$NVM_VERSION/install.sh | bash
 
     echo "NVM :: Making it useable right away"
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 fi
 
 # Node

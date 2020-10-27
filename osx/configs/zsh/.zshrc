@@ -52,13 +52,20 @@ antigen theme romkatv/powerlevel10k
 antigen apply
 
 # ------------------------------------------------------------------------------
+# Fix ZSH
+# https://github.com/zsh-users/zsh-completions/issues/433
+
+# compaudit | xargs chmod g-w
+
+# ------------------------------------------------------------------------------
 # SSH
 
 export SSH_KEY_PATH="~/.ssh/banderror"
-export SSH_KEY_PATH_BANDERROR="$HOME/.ssh/banderror"
+export SSH_KEY_PATH_PERSONAL="$HOME/.ssh/banderror"
 
 eval "$(ssh-agent -s)"
-ssh-add -K $SSH_KEY_PATH_BANDERROR
+chmod 600 $SSH_KEY_PATH_PERSONAL # https://stackoverflow.com/questions/9270734/ssh-permissions-are-too-open-error
+ssh-add -K $SSH_KEY_PATH_PERSONAL
 
 # ------------------------------------------------------------------------------
 # Aliases

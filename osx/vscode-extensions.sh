@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 inputfile="./vscode-extensions.txt"
 extensions=$(cat ${inputfile} | grep -v "^$")

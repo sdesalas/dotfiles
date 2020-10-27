@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 # Many dev tools require the full Xcode.
 # https://stackoverflow.com/questions/17980759/xcode-select-active-developer-directory-error/17980786#17980786

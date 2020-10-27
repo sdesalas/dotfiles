@@ -152,6 +152,7 @@ brew cask install recordit
 brew cask install vlc
 brew cask install logitech-options
 brew cask install native-access
+brew cask install splice
 
 # ------------------------------------------------------------------------------
 # Restore apps' configurations

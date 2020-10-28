@@ -123,3 +123,80 @@ if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# ------------------------------------------------------------------------------
+# Node
+
+export NODE_OPTIONS="--max_old_space_size=2048"
+
+# ------------------------------------------------------------------------------
+# Kibana
+
+# Security Solution (SIEM)
+# https://github.com/elastic/siem-team/blob/master/siem-ui/dev_setup.md
+
+# Elastic aliases
+export KIBANA_HOME=$HOME/Code/elastic/kibana
+export PLUGIN_NAME=security_solution
+export CASE_PLUGIN_NAME=plugins/case
+export NODE_OPTIONS="--max-old-space-size=8192"
+
+# Start kibana
+alias start-kibana='cd $KIBANA_HOME && yarn start --no-base-path'
+
+# Start bootstrap
+alias start-bootstrap='cd $KIBANA_HOME && yarn kbn bootstrap'
+
+# Start typecheck
+alias start-type-check='cd $KIBANA_HOME && node scripts/type_check.js --project x-pack/tsconfig.json'
+
+# Start lint
+alias start-lint='cd $KIBANA_HOME && node scripts/eslint.js'
+alias start-lint-siem='cd $KIBANA_HOME && node scripts/eslint.js x-pack/plugins/$PLUGIN_NAME'
+alias start-lint-case='cd $KIBANA_HOME && node scripts/eslint.js x-pack/plugins/case'
+
+# Start unit tests
+alias start-jest='cd $KIBANA_HOME/x-pack && node scripts/jest.js $PLUGIN_NAME'
+alias start-jest-case='cd $KIBANA_HOME/x-pack && node scripts/jest.js $CASE_PLUGIN_NAME'
+
+# Start unit tests watch
+alias start-jest-watch='cd $KIBANA_HOME/x-pack && node scripts/jest.js $PLUGIN_NAME --watch'
+alias start-jest-watch-size='cd $KIBANA_HOME/x-pack && node --max-old-space-size=8192 --optimize-for-size  --max_old_space_size=8192 --optimize_for_size scripts/jest.js $PLUGIN_NAME --watch --max_new_space_size=8192'
+alias start-jest-watch-case='cd $KIBANA_HOME/x-pack && node scripts/jest.js $CASE_PLUGIN_NAME --watch'
+
+# Start unit tests coverage
+alias start-jest-coverage='cd $KIBANA_HOME/x-pack && node scripts/jest.js $PLUGIN_NAME --coverage'
+alias start-jest-coverage-case='cd $KIBANA_HOME/x-pack && node scripts/jest.js $CASE_PLUGIN_NAME --coverage'
+
+# Start generation
+alias start-bean-gen='cd $KIBANA_HOME/x-pack/plugins/$PLUGIN_NAME && node scripts/generate_types_from_graphql.js'
+
+# Run cyclic dependencies test
+alias start-deps-check='cd ${KIBANA_HOME}/x-pack/plugins/${PLUGIN_NAME} && node scripts/check_circular_deps.js'
+
+# Start api integration tests
+alias start-integration='cd $KIBANA_HOME && node scripts/functional_tests --config x-pack/test/api_integration/config.js'
+
+# Start cypress open
+alias start-cypress-open='cd $KIBANA_HOME/x-pack/plugins/$PLUGIN_NAME && yarn cypress:open'
+
+# Start cypress run
+alias start-cypress-run='cd $KIBANA_HOME/x-pack/plugins/$PLUGIN_NAME && yarn cypress:run'
+
+# Start cypress ci
+alias start-cypress-ci='cd $KIBANA_HOME/x-pack/plugins/$PLUGIN_NAME && yarn cypress:run-as-ci'
+
+# Test all
+alias start-test-all='start-bean-gen && start-i18n-check && start-type-check && start-lint && start-lint-case && start-jest && start-jest-case'
+
+# Start a translation check
+alias start-i18n-check='cd $KIBANA_HOME && node scripts/i18n_check --ignore-missing'
+
+# Backport alias
+alias start-backport='cd $KIBANA_HOME && node scripts/backport'
+
+# Delete node_modules and caches
+alias start-burn-the-world='cd $KIBANA_HOME && git clean -fdx -e \.idea\/ -e config\/ && rm -rf node_modules && yarn cache clean'
+
+# Sync kibana
+alias sync-kibana='cd $KIBANA_HOME && git checkout master && git fetch upstream && git merge upstream/master && git push origin master'

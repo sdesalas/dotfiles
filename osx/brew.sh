@@ -77,9 +77,10 @@ fi
 # Node
 nvm install stable
 nvm install 12.18.1
+nvm install 10.22.1
 nvm install 10.15.3
 nvm install 8.6
-nvm alias default 12.18.1
+nvm alias default 10.22.1
 nvm use default
 nvm ls
 

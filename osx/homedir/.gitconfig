@@ -1,4 +1,6 @@
 [include]
 	path = ~/.dotfiles/osx/configs/git/.gitconfig-common.properties
+[includeIf "gitdir:~/Code/elastic/"]
+	path = ~/.dotfiles/osx/configs/git/.gitconfig-elastic.properties
 [includeIf "gitdir:~/Code/msb/"]
 	path = ~/.dotfiles/osx/configs/git/.gitconfig-msb.properties

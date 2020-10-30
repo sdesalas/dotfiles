@@ -4,8 +4,8 @@
 # Cleanup previous downloads
 
 export DOWNLOADS="$HOME/Downloads/iTerm2"
-rm -rf $DOWNLOADS
-mkdir -p $DOWNLOADS
+rm -rf "$DOWNLOADS"
+mkdir -p "$DOWNLOADS"
 
 # ------------------------------------------------------------------------------
 # Download iTerm2 color schemes
@@ -15,8 +15,8 @@ export CSCHEMES_DIR="$DOWNLOADS/color-schemes"
 export CSCHEMES_ZIP="$DOWNLOADS/color-schemes.zip"
 export CSCHEMES_URL="https://github.com/martinlindhe/base16-iterm2/archive/master.zip"
 
-curl -o $CSCHEMES_ZIP -L $CSCHEMES_URL
-unzip -a $CSCHEMES_ZIP -d $CSCHEMES_DIR
+curl -o "$CSCHEMES_ZIP" -L "$CSCHEMES_URL"
+unzip -a "$CSCHEMES_ZIP" -d "$CSCHEMES_DIR"
 
 # ------------------------------------------------------------------------------
 # Import color schemes

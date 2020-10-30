@@ -54,7 +54,7 @@ brew install zsh
 brew install antigen
 
 # https://rick.cogley.info/post/use-homebrew-zsh-instead-of-the-osx-default/
-sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
+sudo dscl . -create "/Users/$USER" UserShell /usr/local/bin/zsh
 
 # https://github.com/zsh-users/zsh-completions/issues/433
 # https://github.com/zsh-users/zsh-completions/issues/433#issuecomment-680128428

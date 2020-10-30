@@ -91,7 +91,9 @@ alias gcm="git cm"
 alias gam="git amend"
 alias gca="git ca"
 alias gct="git ct"
+alias gp="git po"
 alias gu="git up"
+alias guu="git upup"
 
 # NPM. Extend / override https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/npm
 alias nd="npm dev"

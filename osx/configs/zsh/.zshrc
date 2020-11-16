@@ -68,6 +68,33 @@ chmod 600 $SSH_KEY_PATH_PERSONAL # https://stackoverflow.com/questions/9270734/s
 ssh-add -K $SSH_KEY_PATH_PERSONAL
 
 # ------------------------------------------------------------------------------
+# Git
+
+# Removes all remote-tracking branches that are not also local.
+# Cleans up both origin and upstream remotes.
+function git_forget_remote_branches() {
+    LOCAL_BRANCHES=$(git branch | sed 's|* |  |' | while read line; do echo $line; done | paste -s -d'|' -)
+    LOCAL_BRANCHES_ESC="${LOCAL_BRANCHES//./\.}"
+    LOCAL_BRANCHES_ESC="${LOCAL_BRANCHES_ESC//'/'/'\/'}"
+    git branch -r | grep -E "(origin|upstream)/" | grep -Ev "(${LOCAL_BRANCHES_ESC})$" | grep -v HEAD | xargs git branch -dr
+}
+
+# Removes a specified local branch and its remote-tracking branches.
+# If the local one is not merged, leaves it.
+function git_forget_branch() {
+  git checkout master && (git branch -dr origin/$1 || true) && (git branch -dr upstream/$1 || true) && (git branch -d $1 || true)
+}
+
+function git_forget() {
+  if [ -z "$1" ]
+  then
+    git_forget_remote_branches
+  else
+    git_forget_branch "$1"
+  fi
+}
+
+# ------------------------------------------------------------------------------
 # Aliases
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -81,19 +108,22 @@ ssh-add -K $SSH_KEY_PATH_PERSONAL
 
 # Git. Extend / override https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 # These are aliases to git aliases. See configs/git/.gitconfig-common.properties
-alias gst="git st"
-alias gbr="git br"
-alias gco="git co"
-alias gcob="git cob"
-alias gcb="git cb"
-alias gaa="git aa"
-alias gcm="git cm"
-alias gam="git amend"
-alias gca="git ca"
-alias gct="git ct"
-alias gp="git po"
-alias gu="git up"
-alias guu="git upup"
+alias gst="git st"          # git status
+alias gbr="git br"          # git branch
+alias gco="git co"          # git checkout
+alias gcob="git cob"        # git checkout new branch
+alias gcb="git cb"          # git checkout new branch
+alias gaa="git aa"          # git add all
+alias gcm="git cm"          # git commit
+alias gam="git amend"       # git amend
+alias gca="git ca"          # git commit amend
+alias gct="git ct"          # git commit temp
+alias gp="git po"           # git push origin
+alias gro="git revor"       # git review origin
+alias gru="git revup"       # git review upstream
+alias guo="git upor"        # git update origin
+alias guu="git upup"        # git update upstream
+alias gforget="git_forget"  # git forget branch(es)
 
 # NPM. Extend / override https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/npm
 alias nd="npm dev"

@@ -146,6 +146,7 @@ brew cask install adobe-acrobat-reader
 brew cask install megasync
 brew cask install 1password6
 brew cask install calibre
+brew cask install deepl
 brew cask install grammarly
 brew cask install pluralsight
 brew cask install puush

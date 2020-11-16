@@ -76,11 +76,12 @@ fi
 
 # Node
 nvm install stable
-nvm install 12.18.1
-nvm install 10.22.1
-nvm install 10.15.3
-nvm install 8.6
-nvm alias default 10.22.1
+nvm install 12.19.0         # Kibana current
+nvm install 12.18.1         # MSB
+nvm install 10.22.1         # Kibana previous
+nvm install 10.15.3         # MSB
+nvm install 8.6             # Balkan
+nvm alias default 12.19.0
 nvm use default
 nvm ls
 

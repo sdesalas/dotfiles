@@ -129,6 +129,7 @@ brew cask install suspicious-package
 
 brew cask install commander-one
 brew cask install ticktick
+brew cask install pomello
 brew cask install notion
 brew cask install numi
 brew cask install purevpn

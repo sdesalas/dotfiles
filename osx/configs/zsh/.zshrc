@@ -205,6 +205,7 @@ kibana-init() {
   alias start-jest-case='cd ${KIBANA_HOME}/x-pack && node scripts/jest.js $CASE_PLUGIN_NAME'
 
   # Start unit tests watch
+  alias start-tdd='f() { TESTS_PATH=${1:-""}; cd ${KIBANA_HOME}/x-pack && node scripts/jest.js $TESTS_PATH --watch -o; };f'
   alias start-jest-watch='cd ${KIBANA_HOME}/x-pack && node scripts/jest.js ${PLUGIN_NAME} --watch'
   alias start-jest-watch-size='cd ${KIBANA_HOME}/x-pack && node --max-old-space-size=8192 --optimize-for-size  --max_old_space_size=8192 --optimize_for_size scripts/jest.js $PLUGIN_NAME --watch --max_new_space_size=8192'
   alias start-jest-watch-case='cd ${KIBANA_HOME}/x-pack && node scripts/jest.js $CASE_PLUGIN_NAME --watch'
@@ -228,7 +229,7 @@ kibana-init() {
   # alias start-test-all='start-bean-gen && start-i18n-check && start-type-check && start-lint && start-lint-case && start-jest && start-jest-case'
 
   # Start api integration tests
-  alias start-integration='cd ${KIBANA_HOME} && node scripts/functional_tests --config x-pack/test/api_integration/config.js'
+  alias start-integration='cd ${KIBANA_HOME} && node scripts/functional_tests --config x-pack/test/api_integration/config.ts'
 
   # Start cypress
   alias start-cypress='cd ${KIBANA_HOME}/x-pack/plugins/$PLUGIN_NAME && yarn cypress:run-as-ci'

@@ -12,7 +12,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 if [[ $(command -v brew) == "" ]]; then
     echo "Homebrew :: Installing"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 # ------------------------------------------------------------------------------
@@ -66,7 +66,7 @@ compaudit | xargs chmod g-w
 # NVM
 if [[ $(command -v nvm) == "" ]]; then
     echo "NVM :: Installing"
-    NVM_VERSION=0.36.0
+    NVM_VERSION=0.37.2
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v$NVM_VERSION/install.sh | bash
 
     echo "NVM :: Making it useable right away"
@@ -134,7 +134,7 @@ brew cask install notion
 brew cask install numi
 brew cask install purevpn
 
-# brew cask install google-chrome
+brew cask install google-chrome
 brew cask install google-chrome-canary
 brew cask install firefox
 brew cask install firefox-developer-edition
@@ -144,6 +144,7 @@ brew cask install slack
 brew cask install skype
 brew cask install telegram
 
+brew cask install google-backup-and-sync
 brew cask install adobe-acrobat-reader
 brew cask install megasync
 brew cask install 1password6
@@ -164,7 +165,7 @@ brew cask install splice
 
 # https://github.com/lra/mackup
 brew install mackup
-mackup restore
+# mackup restore
 
 # ------------------------------------------------------------------------------
 # Cleanup Brew packages

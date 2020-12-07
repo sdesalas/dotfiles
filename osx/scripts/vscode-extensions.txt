@@ -46,6 +46,7 @@ sdras.vue-vscode-snippets
 spoonscen.es6-mocha-snippets
 stylelint.vscode-stylelint
 sysoev.language-stylus
+timonwong.shellcheck
 waderyan.nodejs-extension-pack
 WallabyJs.quokka-vscode
 wayou.vscode-todo-highlight

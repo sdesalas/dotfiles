@@ -1,1 +1,1 @@
-source ~/.dotfiles/osx/configs/zsh/.zshrc
+source ~/Code/dotfiles/osx/configs/zsh/.zshrc

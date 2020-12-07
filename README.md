@@ -1,7 +1,9 @@
 # dotfiles
 
-🚧 Work in progress 🚧
-
 Just a bunch of personal dotfiles for MacOS and Windows.
 
-Not intended to be reusable, configurable or extendable.
+Mac:
+
+```sh
+curl -o- https://raw.githubusercontent.com/banderror/dotfiles/master/osx/clone.sh | bash
+```

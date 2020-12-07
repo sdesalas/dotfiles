@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# https://pawelgrzybek.com/change-macos-user-preferences-via-command-line/
+# https://github.com/pawelgrzybek/dotfiles/blob/master/setup-macos.sh
+# https://github.com/mathiasbynens/dotfiles/blob/master/.macos
+
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+osascript -e 'tell application "System Preferences" to quit'
+
 # Ask for the administrator password upfront
 sudo -v
 
@@ -12,6 +20,8 @@ source "$DIR/defaults-system.sh"
 source "$DIR/defaults-apps.sh"
 
 # Kill affected applications
-for app in "Dock" "Finder"; do
+for app in "Dock" \
+    "Finder" \
+    "SystemUIServer"; do
     killall "${app}" > /dev/null 2>&1
 done

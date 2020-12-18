@@ -141,6 +141,12 @@ alias yl="yarn lint"
 alias yt="yarn test"
 
 # ------------------------------------------------------------------------------
+# Folders
+
+export CODE_HOME="$HOME/Code"
+export DEV_HOME="$HOME/Dev"
+
+# ------------------------------------------------------------------------------
 # Google Cloud SDK
 
 # The next line updates PATH for the Google Cloud SDK.
@@ -179,17 +185,17 @@ kibana-init() {
   alias go-detections=$KIBANA_HOME/x-pack/plugins/$PLUGIN_NAME/server/lib/detection_engine/scripts
   alias go-lists=$KIBANA_HOME/x-pack/plugins/lists/server/scripts
 
-  # Start kibana with no-base-path
-  alias start-es='cd ${KIBANA_HOME} && yarn es snapshot --license trial -E xpack.security.authc.api_key.enabled=true -E path.data=$DEV_HOME/es-data'
-  alias start-kibana='cd ${KIBANA_HOME} && yarn start --no-base-path'
-  alias start-kibana-es-snapshot='cd ${KIBANA_HOME} && yarn start --verbose --xpack.security.enabled=true --xpack.ingestManager.enabled=true --xpack.ingestManager.fleet.enabled=true --xpack.encryptedSavedObjects.encryptionKey=abcdefghijklmnopqrstuvwxyz123456 --host="0.0.0.0" --no-base-path'
-  alias start-kibana-real-good='cd ${KIBANA_HOME} && node --max-old-space-size=8000 scripts/kibana.js --no-base-path --dev'
-
-  # Start for endpoint
-  alias start-endpoint-es='cd ${KIBANA_HOME} && yarn es snapshot --license trial -E xpack.security.authc.api_key.enabled=true -E path.data=$DEV_HOME/es-data -E network.host="0.0.0.0" -E discovery.type="single-node" -E xpack.security.enabled=true'
-
   # Start bootstrap process because something in package.json changed
-  alias start-bootstrap='cd ${KIBANA_HOME} && yarn kbn bootstrap'
+  alias start-bootstrap='cd ${KIBANA_HOME} && yarn kbn bootstrap && node scripts/build_kibana_platform_plugins'
+
+  # Start Elasticsearch
+  alias start-es='cd ${KIBANA_HOME} && yarn es snapshot --license trial -E xpack.security.authc.api_key.enabled=true -E path.data=$DEV_HOME/es-data'
+  alias start-es-for-endpoint='cd ${KIBANA_HOME} && yarn es snapshot --license trial -E xpack.security.authc.api_key.enabled=true -E path.data=$DEV_HOME/es-data -E network.host="0.0.0.0" -E discovery.type="single-node" -E xpack.security.enabled=true'
+
+  # Start Kibana
+  alias start-kibana='cd ${KIBANA_HOME} && yarn start'
+  alias start-kibana-es-snapshot='cd ${KIBANA_HOME} && yarn start --verbose --xpack.security.enabled=true --xpack.ingestManager.enabled=true --xpack.ingestManager.fleet.enabled=true --xpack.encryptedSavedObjects.encryptionKey=abcdefghijklmnopqrstuvwxyz123456 --host="0.0.0.0"'
+  alias start-kibana-real-good='cd ${KIBANA_HOME} && node --max-old-space-size=8000 scripts/kibana.js --dev'
 
   # Start typecheck for TypeScript
   alias start-type-check='cd ${KIBANA_HOME} && node scripts/type_check.js --project x-pack/tsconfig.json'
@@ -222,7 +228,8 @@ kibana-init() {
   alias start-bean-gen='cd ${KIBANA_HOME}/x-pack/plugins/$PLUGIN_NAME && node scripts/generate_types_from_graphql.js'
 
   # Run cyclic dependencies test
-  alias start-deps-check='cd ${KIBANA_HOME}/x-pack/plugins/${PLUGIN_NAME} && node scripts/check_circular_deps.js'
+  # Add --debug for showing circular dependencies that were whitelisted
+  alias start-deps-check='cd ${KIBANA_HOME} && node scripts/find_plugins_with_circular_deps'
 
   # Test all of my code at once before doing a commit
   alias start-test-all='start-type-check && start-lint && start-i18n-check && start-deps-check && start-jest'
@@ -234,7 +241,7 @@ kibana-init() {
   # Start cypress
   alias start-cypress='cd ${KIBANA_HOME}/x-pack/plugins/$PLUGIN_NAME && yarn cypress:run-as-ci'
   alias start-cypress-spec='f() { cd ${KIBANA_HOME}/x-pack/plugins/$PLUGIN_NAME && yarn cypress:run-as-ci --spec "**/$1" ;};f'
-  alias start-cypress-open='cd $KIBANA_HOME/x-pack/plugins/$PLUGIN_NAME && yarn cypress:open'
+  alias start-cypress-open='cd $KIBANA_HOME/x-pack/plugins/$PLUGIN_NAME && yarn cypress:open-as-ci'
   alias start-cypress-run='cd $KIBANA_HOME/x-pack/plugins/$PLUGIN_NAME && yarn cypress:run'
   alias start-cypress-ci='cd $KIBANA_HOME/x-pack/plugins/$PLUGIN_NAME && yarn cypress:run-as-ci'
 

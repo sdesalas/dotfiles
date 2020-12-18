@@ -76,13 +76,13 @@ fi
 
 # Node
 nvm install stable
-nvm install 14.15.1         # Kibana current
+nvm install 14.15.2         # Kibana current
 nvm install 12.19.1         # Kibana previous
 nvm install 12.18.1         # MSB
 nvm install 10.22.1         # Kibana previous
 nvm install 10.15.3         # MSB
 nvm install 8.6             # Balkan
-nvm alias default 14.15.1
+nvm alias default 14.15.2
 nvm use default
 nvm ls
 
@@ -139,6 +139,8 @@ brew cask install google-chrome-canary
 brew cask install firefox
 brew cask install firefox-developer-edition
 brew cask install opera
+brew cask install microsoft-edge
+brew cask install brave-browser
 
 brew cask install slack
 brew cask install skype

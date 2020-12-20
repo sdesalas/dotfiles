@@ -32,20 +32,19 @@ brew upgrade
 export HOMEBREW_NO_AUTO_UPDATE=0
 
 # ------------------------------------------------------------------------------
-# Install essentials
+# Install Git
 
-# Git
 brew install git && brew link --force git
 brew install git-crypt
 brew install git-lfs
 git lfs install
 
-# Utils
-brew install wget
-brew install jq
-brew install httpie
-brew install mitmproxy
-brew install mtr
+# ------------------------------------------------------------------------------
+# Install fonts
+
+# https://www.nerdfonts.com/
+# https://sourcefoundry.org/hack/
+brew cask install font-hack-nerd-font
 
 # ------------------------------------------------------------------------------
 # Customize shell
@@ -96,33 +95,45 @@ brew install python3
 # ------------------------------------------------------------------------------
 # Install dev tools
 
-brew cask install iterm2
-brew cask install font-hack-nerd-font
-brew cask install visual-studio-code
-brew cask install jetbrains-toolbox
-brew cask install typora
+brew install wget                       # ?
+brew install jq                         # ?
+brew install lsd                        # https://github.com/Peltoche/lsd
+brew install bat                        # https://github.com/sharkdp/bat
+brew install lolcat                     # https://github.com/busyloop/lolcat
+brew install neofetch                   # https://github.com/dylanaraps/neofetch
+brew install httpie                     # ?
+brew install mitmproxy                  # ?
+brew install mtr                        # ?
+brew install fzf                        # https://github.com/junegunn/fzf
+$(brew --prefix)/opt/fzf/install
 
-brew cask install gitkraken
-brew cask install sourcetree
-brew cask install gitify
+brew cask install iterm2                # ?
 
-brew cask install docker
-brew cask install google-cloud-sdk
-brew install awscli
-brew install aws-iam-authenticator
-brew install kubernetes-helm
-brew install terraform
+brew cask install visual-studio-code    # ?
+brew cask install jetbrains-toolbox     # ?
+brew cask install typora                # ?
 
-brew cask install dash
-brew cask install robo-3t
-brew cask install browserstacklocal
-brew cask install postman
-brew cask install insomnia
-brew cask install charles
-brew cask install wireshark
-brew cask install ngrok
-brew cask install gpg-suite
-brew cask install suspicious-package
+brew cask install gitkraken             # ?
+brew cask install sourcetree            # ?
+brew cask install gitify                # ?
+
+brew cask install docker                # ?
+brew cask install google-cloud-sdk      # ?
+brew install awscli                     # ?
+brew install aws-iam-authenticator      # ?
+brew install kubernetes-helm            # ?
+brew install terraform                  # ?
+
+brew cask install dash                  # ?
+brew cask install robo-3t               # ?
+brew cask install browserstacklocal     # ?
+brew cask install postman               # ?
+brew cask install insomnia              # ?
+brew cask install charles               # ?
+brew cask install wireshark             # ?
+brew cask install ngrok                 # ?
+brew cask install gpg-suite             # ?
+brew cask install suspicious-package    # ?
 
 # ------------------------------------------------------------------------------
 # Install other apps

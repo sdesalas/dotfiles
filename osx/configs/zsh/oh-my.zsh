@@ -1,11 +1,4 @@
 # ------------------------------------------------------------------------------
-# Extending $PATH
-
-export PATH="$HOME/bin:$PATH"
-export PATH="/usr/local/bin:$PATH"
-export PATH="/usr/local/sbin:$PATH"
-
-# ------------------------------------------------------------------------------
 # Powerlevel9k (or Powerlevel10k) ZSH theme
 # https://github.com/bhilburn/powerlevel9k#prompt-customization
 

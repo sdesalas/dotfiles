@@ -43,6 +43,7 @@ antigen bundle yarn
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-history-substring-search
 
 # Theme
 # https://github.com/romkatv/powerlevel10k
@@ -50,6 +51,13 @@ antigen theme romkatv/powerlevel10k
 
 # Tell antigen that we're done
 antigen apply
+
+# ------------------------------------------------------------------------------
+# Configure ZSH plugins
+
+# https://github.com/zsh-users/zsh-history-substring-search
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 
 # ------------------------------------------------------------------------------
 # Fix ZSH

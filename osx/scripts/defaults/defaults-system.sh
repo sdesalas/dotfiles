@@ -45,7 +45,8 @@ defaults write com.apple.controlstrip FullCustomized -array \
 # ------------------------------------------------------------------------------
 # Mouse
 
-defaults write "Apple Global Domain" "com.apple.mouse.scaling" -int 1
+defaults write "Apple Global Domain" "com.apple.mouse.scaling" -float 2
+defaults write "Apple Global Domain" "com.apple.scrollwheel.scaling" -float 0.8
 
 # ------------------------------------------------------------------------------
 # Trackpad

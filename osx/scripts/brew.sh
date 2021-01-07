@@ -24,6 +24,7 @@ echo "Homebrew :: Adding taps"
 brew tap homebrew/cask-fonts
 brew tap homebrew/cask-drivers
 brew tap homebrew/cask-versions
+brew tap elastic/tap
 
 echo "Homebrew :: Updating"
 brew update
@@ -137,6 +138,11 @@ brew cask install wireshark             # ?
 brew cask install ngrok                 # ?
 brew cask install gpg-suite             # ?
 brew cask install suspicious-package    # ?
+
+brew install elastic/tap/auditbeat-full     # https://www.elastic.co/guide/en/beats/auditbeat/current/auditbeat-installation-configuration.html
+brew install elastic/tap/filebeat-full      # https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html
+brew install elastic/tap/metricbeat-full    # https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-installation-configuration.html
+brew install elastic/tap/packetbeat-full    # https://www.elastic.co/guide/en/beats/packetbeat/current/packetbeat-installation-configuration.html
 
 # ------------------------------------------------------------------------------
 # Install other apps

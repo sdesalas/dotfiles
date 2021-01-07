@@ -177,6 +177,7 @@ brew cask install pluralsight
 brew cask install puush
 brew cask install qbittorrent
 brew cask install recordit
+brew cask install keycastr                  # https://github.com/keycastr/keycastr
 brew cask install vlc
 brew cask install logitech-options
 brew cask install native-access

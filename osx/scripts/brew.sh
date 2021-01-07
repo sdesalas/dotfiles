@@ -75,7 +75,8 @@ fi
 
 # Node
 nvm install stable
-nvm install 14.15.3         # Kibana current
+nvm install 14.15.4         # Kibana current
+nvm install 14.15.3         # Kibana previous
 nvm install 14.15.2         # Kibana previous
 nvm install 14.15.1         # Kibana previous
 nvm install 12.19.1         # Kibana previous
@@ -83,7 +84,7 @@ nvm install 12.18.1         # MSB
 nvm install 10.22.1         # Kibana previous
 nvm install 10.15.3         # MSB
 nvm install 8.6             # Balkan
-nvm alias default 14.15.3
+nvm alias default 14.15.4
 nvm use default
 nvm ls
 

@@ -45,7 +45,7 @@ git lfs install
 
 # https://www.nerdfonts.com/
 # https://sourcefoundry.org/hack/
-brew cask install font-hack-nerd-font
+brew install --cask font-hack-nerd-font
 
 # ------------------------------------------------------------------------------
 # Customize shell
@@ -111,33 +111,33 @@ brew install mtr                        # ?
 brew install fzf                        # https://github.com/junegunn/fzf
 $(brew --prefix)/opt/fzf/install
 
-brew cask install iterm2                # ?
+brew install --cask iterm2              # ?
 
-brew cask install visual-studio-code    # ?
-brew cask install jetbrains-toolbox     # ?
-brew cask install typora                # ?
+brew install --cask visual-studio-code  # ?
+brew install --cask jetbrains-toolbox   # ?
+brew install --cask typora              # ?
 
-brew cask install gitkraken             # ?
-brew cask install sourcetree            # ?
-brew cask install gitify                # ?
+brew install --cask gitkraken           # ?
+brew install --cask sourcetree          # ?
+brew install --cask gitify              # ?
 
-brew cask install docker                # ?
-brew cask install google-cloud-sdk      # ?
+brew install --cask docker              # ?
+brew install --cask google-cloud-sdk    # ?
 brew install awscli                     # ?
 brew install aws-iam-authenticator      # ?
 brew install kubernetes-helm            # ?
 brew install terraform                  # ?
 
-brew cask install dash                  # ?
-brew cask install robo-3t               # ?
-brew cask install browserstacklocal     # ?
-brew cask install postman               # ?
-brew cask install insomnia              # ?
-brew cask install charles               # ?
-brew cask install wireshark             # ?
-brew cask install ngrok                 # ?
-brew cask install gpg-suite             # ?
-brew cask install suspicious-package    # ?
+brew install --cask dash                # ?
+brew install --cask robo-3t             # ?
+brew install --cask browserstacklocal   # ?
+brew install --cask postman             # ?
+brew install --cask insomnia            # ?
+brew install --cask charles             # ?
+brew install --cask wireshark           # ?
+brew install --cask ngrok               # ?
+brew install --cask gpg-suite           # ?
+brew install --cask suspicious-package  # ?
 
 brew install elastic/tap/auditbeat-full     # https://www.elastic.co/guide/en/beats/auditbeat/current/auditbeat-installation-configuration.html
 brew install elastic/tap/filebeat-full      # https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html
@@ -147,41 +147,41 @@ brew install elastic/tap/packetbeat-full    # https://www.elastic.co/guide/en/be
 # ------------------------------------------------------------------------------
 # Install other apps
 
-brew cask install commander-one
-brew cask install ticktick
-brew cask install pomello
-brew cask install notion
-brew cask install numi
-brew cask install purevpn
+brew install --cask commander-one
+brew install --cask ticktick
+brew install --cask pomello
+brew install --cask notion
+brew install --cask numi
+brew install --cask purevpn
 
-brew cask install google-chrome
-brew cask install google-chrome-canary
-brew cask install firefox
-brew cask install firefox-developer-edition
-brew cask install opera
-brew cask install microsoft-edge
-brew cask install brave-browser
+brew install --cask google-chrome
+brew install --cask google-chrome-canary
+brew install --cask firefox
+brew install --cask firefox-developer-edition
+brew install --cask opera
+brew install --cask microsoft-edge
+brew install --cask brave-browser
 
-brew cask install slack
-brew cask install skype
-brew cask install telegram
+brew install --cask slack
+brew install --cask skype
+brew install --cask telegram
 
-brew cask install google-backup-and-sync
-brew cask install adobe-acrobat-reader
-brew cask install megasync
-brew cask install 1password6
-brew cask install calibre
-brew cask install deepl
-brew cask install grammarly
-brew cask install pluralsight
-brew cask install puush
-brew cask install qbittorrent
-brew cask install recordit
-brew cask install keycastr                  # https://github.com/keycastr/keycastr
-brew cask install vlc
-brew cask install logitech-options
-brew cask install native-access
-brew cask install splice
+brew install --cask google-backup-and-sync
+brew install --cask adobe-acrobat-reader
+brew install --cask megasync
+brew install --cask 1password6
+brew install --cask calibre
+brew install --cask deepl
+brew install --cask grammarly
+brew install --cask pluralsight
+brew install --cask puush
+brew install --cask qbittorrent
+brew install --cask recordit
+brew install --cask keycastr                  # https://github.com/keycastr/keycastr
+brew install --cask vlc
+brew install --cask logitech-options
+brew install --cask native-access
+brew install --cask splice
 
 # ------------------------------------------------------------------------------
 # Restore apps' configurations

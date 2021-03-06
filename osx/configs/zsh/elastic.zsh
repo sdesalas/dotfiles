@@ -2,6 +2,10 @@
 # Kibana and Security Solution (SIEM)
 # https://github.com/elastic/siem-team/blob/master/siem-ui/dev_setup.md
 
+# yarn kbn bootstrap now often takes ~30m.
+# This is a temp measure https://github.com/elastic/kibana/pull/91012
+export BUILD_TS_REFS_CACHE_ENABLE=true
+
 # Initialize Kibana-related env variables and aliases.
 # Wrapping aliases in function so they can be updated w/ version.
 kibana-init() {

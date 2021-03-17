@@ -33,7 +33,7 @@ kibana-init() {
   alias start-kibana-real-good='cd ${KIBANA_HOME} && node --max-old-space-size=8000 scripts/kibana.js --dev'
 
   # Start typecheck for TypeScript
-  alias start-type-check='cd ${KIBANA_HOME} && node scripts/type_check.js --project x-pack/tsconfig.json'
+  alias start-type-check='cd ${KIBANA_HOME} && node scripts/type_check.js --project tsconfig.json x-pack/plugins/security_solution'
 
   # Start eslint to lint for issues
   alias start-lint='cd ${KIBANA_HOME} && node scripts/eslint.js x-pack/plugins/${PLUGIN_NAME}'

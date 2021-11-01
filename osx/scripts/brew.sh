@@ -140,6 +140,7 @@ brew install --cask robo-3t             # ?
 brew install --cask browserstacklocal   # ?
 brew install --cask postman             # ?
 brew install --cask insomnia            # ?
+brew install --cask http-toolkit        # https://httptoolkit.tech/
 brew install --cask charles             # ?
 brew install --cask wireshark           # ?
 brew install --cask ngrok               # ?

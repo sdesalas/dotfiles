@@ -1,28 +1,79 @@
 # ------------------------------------------------------------------------------
 # Functions
 
-# Removes all remote-tracking branches that are not also local.
-# Cleans up both origin and upstream remotes.
-function git_forget_remote_branches() {
-    LOCAL_BRANCHES=$(git branch | sed 's|* |  |' | while read line; do echo $line; done | paste -s -d'|' -)
-    LOCAL_BRANCHES_ESC="${LOCAL_BRANCHES//./\.}"
-    LOCAL_BRANCHES_ESC="${LOCAL_BRANCHES_ESC//'/'/'\/'}"
-    git branch -r | grep -E "(origin|upstream)/" | grep -Ev "(${LOCAL_BRANCHES_ESC})$" | grep -v HEAD | xargs git branch -dr
+function git_edit_config() {
+  git config --global -e
 }
 
-# Removes a specified local branch and its remote-tracking branches.
+function git_push_origin() {
+  git push --set-upstream origin $(git_current_branch)
+}
+
+# Pulls a new branch from a gm_remote repo.
+# Example 1: git_review upstream mybranch
+# Example 2: git_review upstream
+# Example 3: git_review
+function git_review() {
+  local gr_main_branch=$(git_main_branch)
+  local gr_remote=${1-origin}
+  local gr_branch=${2-$gr_main_branch}
+  echo ">>> git fetch ${gr_remote} ${gr_branch} && git checkout --track ${gr_remote}/${gr_branch} && git pull ${gr_remote} ${gr_branch} --tags"
+  git fetch ${gr_remote} ${gr_branch} && git checkout --track ${gr_remote}/${gr_branch} && git pull ${gr_remote} ${gr_branch} --tags
+}
+
+# Updates local branch from its gm_remote counterpart.
+# Example 1: git_update upstream mybranch
+# Example 2: git_update upstream
+# Example 3: git_update
+function git_update() {
+  local gu_current_branch=$(git_current_branch)
+  local gu_remote=${1-origin}
+  local gu_branch=${2-$gu_current_branch}
+  echo ">>> git checkout ${gu_branch} && git pull ${gu_remote} ${gu_branch} --tags"
+  git checkout ${gu_branch} && git pull ${gu_remote} ${gu_branch} --tags
+}
+
+# Updates local repo after merging a PR to the gm_remote repo
+# Example 1: git_merged upstream mybranch
+# Example 2: git_merged upstream
+# Example 3: git_merged
+function git_merged() {
+  local gm_main_branch=$(git_main_branch)
+  local gm_current_branch=$(git_current_branch)
+  local gm_remote=${1-origin}
+  local gm_branch=${2-$gm_current_branch}
+  echo ">>> git_update ${gm_remote} ${gm_main_branch} && git_forget_branch ${gm_branch}"
+  git_update ${gm_remote} ${gm_main_branch} && git_forget_branch ${gm_branch}
+}
+
+# Removes all gm_remote-tracking branches that are not also local.
+# Cleans up both origin and upstream gm_remotes.
+function git_forget_gm_remote_branches() {
+  LOCAL_BRANCHES=$(git branch | sed 's|* |  |' | while read line; do echo $line; done | paste -s -d'|' -)
+  LOCAL_BRANCHES_ESC="${LOCAL_BRANCHES//./\.}"
+  LOCAL_BRANCHES_ESC="${LOCAL_BRANCHES_ESC//'/'/'\/'}"
+  git branch -r | grep -E "(origin|upstream)/" | grep -Ev "(${LOCAL_BRANCHES_ESC})$" | grep -v HEAD | xargs git branch -dr
+}
+
+# Removes a specified local branch and its gm_remote-tracking branches.
 # If the local one is not merged, leaves it.
 function git_forget_branch() {
-  git checkout master && (git branch -dr origin/$1 || true) && (git branch -dr upstream/$1 || true) && (git branch -d $1 || true)
+  echo ">>> git checkout $(git_main_branch) && (git branch -dr origin/$1 || true) && (git branch -dr upstream/$1 || true) && (git branch -d $1 || true)"
+  git checkout $(git_main_branch) && (git branch -dr origin/$1 || true) && (git branch -dr upstream/$1 || true) && (git branch -d $1 || true)
 }
 
 function git_forget() {
   if [ -z "$1" ]
   then
-    git_forget_remote_branches
+    git_forget_gm_remote_branches
   else
     git_forget_branch "$1"
   fi
+}
+
+function git_prune() {
+  echo ">>> (git remote prune origin || true) && (git remote prune upstream || true)"
+  (git remote prune origin || true) && (git remote prune upstream || true)
 }
 
 # ------------------------------------------------------------------------------
@@ -31,19 +82,43 @@ function git_forget() {
 # These are aliases to git aliases. See configs/git/.gitconfig-common.properties
 # They extend/override https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 
-alias gst="git st"          # git status
-alias gbr="git br"          # git branch
-alias gco="git co"          # git checkout
-alias gcob="git cob"        # git checkout new branch
-alias gcb="git cb"          # git checkout new branch
-alias gaa="git aa"          # git add all
-alias gcm="git cm"          # git commit
-alias gam="git amend"       # git amend
-alias gca="git ca"          # git commit amend
-alias gct="git ct"          # git commit temp
-alias gp="git po"           # git push origin
-alias gro="git revor"       # git review origin
-alias gru="git revup"       # git review upstream
-alias guo="git upor"        # git update origin
-alias guu="git upup"        # git update upstream
-alias gforget="git_forget"  # git forget branch(es)
+# Check status
+alias gst="git status"
+
+# Select or create branch
+alias gb="git branch"
+alias gco="git checkout"
+alias gcob="git checkout -b"  # create new branch
+alias gcb="git checkout -b"   # create new branch
+
+# Commit
+alias gaa="git add -A && git status"                                  # stage all changes
+alias gcm="git commit -m"                                             # commit
+alias gam="git commit --amend --no-edit"                              # amend last commit
+alias gca="git add -A && git commit --amend --no-edit"                # stage all and amend last commit
+alias gct="git add -A && git commit -m \"TEMP COMMIT. REBASE ME\""    # stage all and create new commit
+
+# Push
+alias gp="git_push_origin"  # push origin current branch
+
+# Pull
+alias grev="git_review ${1} ${2}"
+alias gupd="git_update ${1} ${2}"
+alias gro="git_review origin ${1}"
+alias gru="git_review upstream ${1}"
+alias guo="git_update origin ${1}"
+alias guu="git_update upstream ${1}"
+
+# Undo changes
+alias gundo="git reset HEAD~${1-1} --mixed && git status"
+alias gunstage="git reset HEAD -- . && git status"
+alias gwipe="git add -A && git commit -qm 'WIPE SAVEPOINT' --no-verify && git reset HEAD~1 --hard && git status"
+
+# Delete branches
+alias gmo="git_merged origin ${1}"
+alias gmu="git_merged upstream ${1}"
+alias gforget="git_forget ${1}"
+alias gprune="git_prune"
+
+# Misc
+alias gec="git_edit_config"

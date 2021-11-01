@@ -9,7 +9,7 @@ export BUILD_TS_REFS_CACHE_ENABLE=true
 # Initialize Kibana-related env variables and aliases.
 # Wrapping aliases in function so they can be updated w/ version.
 kibana-init() {
-  export KIBANA_VERSION=${1:-master}
+  export KIBANA_VERSION=${1:-main}
   export KIBANA_HOME="$CODE_HOME/elastic/kibana-$KIBANA_VERSION"
   export PLUGIN_NAME="security_solution"
   export PLUGIN_PATH="x-pack/plugins/${PLUGIN_NAME}"
@@ -86,7 +86,7 @@ kibana-init() {
   # Open ES Archiver Saved Index -- e.g. es-archiver filebeat/default
   alias es-archiver='f() { cd ${KIBANA_HOME}/x-pack && node ../scripts/es_archiver edit $1/default ;};f'
 
-  # Start Backporting a PR merged w/ master
+  # Start Backporting a PR merged w/ main
   alias start-backport='cd ${KIBANA_HOME} && node scripts/backport'
 
   # Doc Building Aliases
@@ -102,7 +102,7 @@ kibana-init() {
   alias start-burn-the-world='cd ${KIBANA_HOME} && git clean -fdx -e \.idea\/ -e config\/ && rm -rf node_modules && yarn cache clean'
 
   # Sync kibana
-  alias sync-kibana='cd ${KIBANA_HOME} && git checkout master && git fetch upstream && git merge upstream/master && git push origin master'
+  alias sync-kibana='cd ${KIBANA_HOME} && git checkout main && git fetch upstream && git merge upstream/main && git push origin main'
 }
 
 kbn() {
@@ -110,4 +110,4 @@ kbn() {
   cd ${KIBANA_HOME}
 }
 
-kibana-init master
+kibana-init main

@@ -89,8 +89,10 @@ nvm install 14.16.0         # Kibana
 nvm install 14.16.1         # Kibana
 nvm install 14.17.0         # Kibana
 nvm install 14.17.3         # Kibana
-nvm install 14.17.5         # Kibana current
-nvm alias default 14.17.5
+nvm install 14.17.5         # Kibana
+nvm install 14.17.6         # Kibana
+nvm install 16.11.1         # Kibana current
+nvm alias default 16.11.1
 nvm use default
 nvm ls
 

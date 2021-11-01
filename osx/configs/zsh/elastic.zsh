@@ -11,7 +11,7 @@ export BUILD_TS_REFS_CACHE_ENABLE=true
 kibana-init() {
   export KIBANA_VERSION=${1:-master}
   export KIBANA_HOME="$CODE_HOME/elastic/kibana-$KIBANA_VERSION"
-  export PLUGIN_NAME="rule_registry"
+  export PLUGIN_NAME="security_solution"
   export PLUGIN_PATH="x-pack/plugins/${PLUGIN_NAME}"
   export ELASTIC_XPACK_SIEM_LISTS_FEATURE=true
 
@@ -24,7 +24,7 @@ kibana-init() {
 
   # Start Kibana
   alias start-kibana='cd ${KIBANA_HOME} && yarn start'
-  alias start-kibana-es-snapshot='cd ${KIBANA_HOME} && yarn start --verbose --xpack.security.enabled=true --xpack.ingestManager.enabled=true --xpack.ingestManager.fleet.enabled=true --xpack.encryptedSavedObjects.encryptionKey=abcdefghijklmnopqrstuvwxyz123456 --host="0.0.0.0"'
+  alias start-kibana-es-snapshot='cd ${KIBANA_HOME} && yarn start --xpack.encryptedSavedObjects.encryptionKey=abcdefghijklmnopqrstuvwxyz123456 --host="0.0.0.0"'
   alias start-kibana-real-good='cd ${KIBANA_HOME} && node --max-old-space-size=8000 scripts/kibana.js --dev'
 
   # Start typecheck for TypeScript
@@ -35,15 +35,15 @@ kibana-init() {
   alias start-lint-all='cd ${KIBANA_HOME} && node scripts/eslint.js'
 
   # Start unit tests
-  alias start-jest='cd ${KIBANA_HOME}/x-pack && node scripts/jest.js ${PLUGIN_NAME}'
+  alias start-jest='cd ${KIBANA_HOME} && node x-pack/scripts/jest.js ${PLUGIN_NAME}'
 
   # Start unit tests watch
-  alias start-tdd='f() { TESTS_PATH=${1:-""}; cd ${KIBANA_HOME}/x-pack && node scripts/jest.js $TESTS_PATH --watch -o; };f'
-  alias start-jest-watch='cd ${KIBANA_HOME}/x-pack && node scripts/jest.js ${PLUGIN_NAME} --watch'
-  alias start-jest-watch-size='cd ${KIBANA_HOME}/x-pack && node --max-old-space-size=8192 --optimize-for-size  --max_old_space_size=8192 --optimize_for_size scripts/jest.js $PLUGIN_NAME --watch --max_new_space_size=8192'
+  alias start-tdd='f() { TESTS_PATH=${1:-""}; cd ${KIBANA_HOME} && node x-pack/scripts/jest.js $TESTS_PATH --watch -o; };f'
+  alias start-jest-watch='cd ${KIBANA_HOME} && node x-pack/scripts/jest.js ${PLUGIN_NAME} --watch'
+  alias start-jest-watch-size='cd ${KIBANA_HOME} && node --max-old-space-size=8192 --optimize-for-size  --max_old_space_size=8192 --optimize_for_size x-pack/scripts/jest.js $PLUGIN_NAME --watch --max_new_space_size=8192'
 
   # Start unit tests coverage
-  alias start-jest-coverage='cd ${KIBANA_HOME}/x-pack && node scripts/jest.js ${PLUGIN_NAME} --coverage'
+  alias start-jest-coverage='cd ${KIBANA_HOME} && node x-pack/scripts/jest.js ${PLUGIN_NAME} --coverage'
 
   # Start i18n Check
   alias start-i18n-check='cd ${KIBANA_HOME} && node scripts/i18n_check --ignore-missing'
@@ -63,6 +63,18 @@ kibana-init() {
   alias start-integration='cd ${KIBANA_HOME} && node scripts/functional_tests --config x-pack/test/api_integration/config.ts'
   alias start-integration-server='cd ${KIBANA_HOME} && node scripts/functional_tests_server --config x-pack/test/api_integration/config.ts'
   alias start-integration-runner='cd ${KIBANA_HOME} && node scripts/functional_test_runner --config x-pack/test/api_integration/config.ts'
+
+  alias start-integration-de-basic='cd ${KIBANA_HOME} && node scripts/functional_tests --config x-pack/test/detection_engine_api_integration/basic/config.ts'
+  alias start-integration-server-de-basic='cd ${KIBANA_HOME} && node scripts/functional_tests_server --config x-pack/test/api_integration/config.ts'
+  alias start-integration-runner-de-basic='cd ${KIBANA_HOME} && node scripts/functional_test_runner --config x-pack/test/api_integration/config.ts'
+
+  alias start-integration-de-trial='cd ${KIBANA_HOME} && node scripts/functional_tests --config x-pack/test/detection_engine_api_integration/security_and_spaces/config.ts'
+  alias start-integration-server-de-trial='cd ${KIBANA_HOME} && node scripts/functional_tests_server --config x-pack/test/detection_engine_api_integration/security_and_spaces/config.ts'
+  alias start-integration-runner-de-trial='cd ${KIBANA_HOME} && node scripts/functional_test_runner --config x-pack/test/detection_engine_api_integration/security_and_spaces/config.ts'
+
+  alias start-integration-lists='cd ${KIBANA_HOME} && node scripts/functional_tests --config x-pack/test/lists_api_integration/security_and_spaces/config.ts'
+  alias start-integration-server-lists='cd ${KIBANA_HOME} && node scripts/functional_tests_server --config x-pack/test/lists_api_integration/security_and_spaces/config.ts'
+  alias start-integration-runner-lists='cd ${KIBANA_HOME} && node scripts/functional_test_runner --config x-pack/test/lists_api_integration/security_and_spaces/config.ts'
 
   # Start cypress
   alias start-cypress='cd ${KIBANA_HOME}/${PLUGIN_PATH} && yarn cypress:run-as-ci'

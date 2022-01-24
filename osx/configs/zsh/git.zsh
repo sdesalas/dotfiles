@@ -2,11 +2,13 @@
 # Functions
 
 function git_edit_config() {
+  echo ">>> git config --global -e"
   git config --global -e
 }
 
 function git_push_origin() {
-  git push --set-upstream origin $(git_current_branch)
+  echo ">>> git push --set-upstream origin $(git_current_branch) $@"
+  git push --set-upstream origin $(git_current_branch) $@
 }
 
 # Pulls a new branch from a gm_remote repo.
@@ -83,42 +85,40 @@ function git_prune() {
 # They extend/override https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 
 # Check status
-alias gst="git status"
+alias gst='git status'
 
 # Select or create branch
-alias gb="git branch"
-alias gco="git checkout"
-alias gcob="git checkout -b"  # create new branch
-alias gcb="git checkout -b"   # create new branch
+alias gb='git branch'
+alias gco='git checkout'
+alias gcob='git checkout -b'  # create new branch
+alias gcb='git checkout -b'   # create new branch
 
 # Commit
-alias gaa="git add -A && git status"                                  # stage all changes
-alias gcm="git commit -m"                                             # commit
-alias gam="git commit --amend --no-edit"                              # amend last commit
-alias gca="git add -A && git commit --amend --no-edit"                # stage all and amend last commit
-alias gct="git add -A && git commit -m \"TEMP COMMIT. REBASE ME\""    # stage all and create new commit
+alias gaa='git add -A && git status'                                  # stage all changes
+alias gcm='git commit -m'                                             # commit
+alias gam='git commit --amend --no-edit'                              # amend last commit
+alias gca='git add -A && git commit --amend --no-edit'                # stage all and amend last commit
+alias gct='git add -A && git commit -m "TEMP COMMIT. REBASE ME"'      # stage all and create new commit
 
 # Push
-alias gp="git_push_origin"  # push origin current branch
+alias gp='f() { git_push_origin $@; };f'  # push origin current branch
 
 # Pull
-alias grev="git_review ${1} ${2}"
-alias gupd="git_update ${1} ${2}"
-alias gro="git_review origin ${1}"
-alias gru="git_review upstream ${1}"
-alias guo="git_update origin ${1}"
-alias guu="git_update upstream ${1}"
+alias gro='f() { git_review origin $1; };f'
+alias gru='f() { git_review upstream $1; };f'
+alias guo='f() { git_update origin $1; };f'
+alias guu='f() { git_update upstream $1; };f'
 
 # Undo changes
-alias gundo="git reset HEAD~${1-1} --mixed && git status"
-alias gunstage="git reset HEAD -- . && git status"
-alias gwipe="git add -A && git commit -qm 'WIPE SAVEPOINT' --no-verify && git reset HEAD~1 --hard && git status"
+alias gundo='f() { git reset HEAD~${1:-1} --mixed && git status; };f'
+alias gunstage='git reset HEAD -- . && git status'
+alias gwipe='git add -A && git commit -qm "WIPE SAVEPOINT" --no-verify && git reset HEAD~1 --hard && git status'
 
 # Delete branches
-alias gmo="git_merged origin ${1}"
-alias gmu="git_merged upstream ${1}"
-alias gforget="git_forget ${1}"
-alias gprune="git_prune"
+alias gmo='f() { git_merged origin $1; };f'
+alias gmu='f() { git_merged upstream $1; };f'
+alias gforget='f() { git_forget $1; };f'
+alias gprune='git_prune'
 
 # Misc
-alias gec="git_edit_config"
+alias gec='git_edit_config'

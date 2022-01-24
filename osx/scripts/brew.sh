@@ -165,12 +165,12 @@ brew install --cask numi
 brew install --cask purevpn
 
 brew install --cask google-chrome
-brew install --cask google-chrome-canary
+brew install --cask google-chrome-dev
 brew install --cask firefox
 brew install --cask firefox-developer-edition
+brew install --cask brave-browser
 brew install --cask opera
 brew install --cask microsoft-edge
-brew install --cask brave-browser
 
 brew install --cask slack
 brew install --cask skype

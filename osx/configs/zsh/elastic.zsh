@@ -1,4 +1,10 @@
 # ------------------------------------------------------------------------------
+# Vault (secrets storage)
+# https://github.com/elastic/infra/blob/master/docs/vault/README.md
+
+export VAULT_ADDR=https://secrets.elastic.co:8200
+
+# ------------------------------------------------------------------------------
 # Kibana and Security Solution (SIEM)
 # https://github.com/elastic/siem-team/blob/master/siem-ui/dev_setup.md
 
@@ -24,8 +30,6 @@ kibana-init() {
 
   # Start Kibana
   alias start-kibana='cd ${KIBANA_HOME} && yarn start'
-  alias start-kibana-es-snapshot='cd ${KIBANA_HOME} && yarn start --xpack.encryptedSavedObjects.encryptionKey=abcdefghijklmnopqrstuvwxyz123456 --host="0.0.0.0"'
-  alias start-kibana-real-good='cd ${KIBANA_HOME} && node --max-old-space-size=8000 scripts/kibana.js --dev'
 
   # Start typecheck for TypeScript
   alias start-type-check='cd ${KIBANA_HOME} && node scripts/type_check.js --project tsconfig.json ${PLUGIN_PATH}'

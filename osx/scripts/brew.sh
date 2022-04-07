@@ -93,8 +93,9 @@ nvm install 14.17.5         # Kibana
 nvm install 14.17.6         # Kibana
 nvm install 16.11.1         # Kibana
 nvm install 16.13.0         # Kibana
-nvm install 16.13.2         # Kibana current
-nvm alias default 16.13.2
+nvm install 16.13.2         # Kibana
+nvm install 16.14.2         # Kibana current
+nvm alias default 16.14.2
 nvm use default
 nvm ls
 
@@ -136,6 +137,7 @@ brew install awscli                     # ?
 brew install aws-iam-authenticator      # ?
 brew install kubernetes-helm            # ?
 brew install terraform                  # ?
+brew install vault                      # https://www.vaultproject.io/
 
 brew install --cask dash                # ?
 brew install --cask robo-3t             # ?

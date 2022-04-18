@@ -40,6 +40,9 @@ brew install git-crypt
 brew install git-lfs
 git lfs install
 
+brew install gh     # https://github.com/cli/cli, https://cli.github.com/manual/
+brew install hub    # https://github.com/github/hub, https://hub.github.com/
+
 # ------------------------------------------------------------------------------
 # Install fonts
 

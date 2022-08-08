@@ -64,21 +64,28 @@ kibana-init() {
   alias start-test-all='start-type-check && start-lint && start-i18n-check && start-deps-check && start-jest'
 
   # Start api integration tests
-  alias start-integration='cd ${KIBANA_HOME} && node scripts/functional_tests --config x-pack/test/api_integration/config.ts'
-  alias start-integration-server='cd ${KIBANA_HOME} && node scripts/functional_tests_server --config x-pack/test/api_integration/config.ts'
-  alias start-integration-runner='cd ${KIBANA_HOME} && node scripts/functional_test_runner --config x-pack/test/api_integration/config.ts'
+  # Kibana running for integration tests: http://localhost:5620/
+  alias start-integration='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests --config test/api_integration/config.ts'
+  alias start-integration-server='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests_server --config test/api_integration/config.ts'
+  alias start-integration-runner='cd ${KIBANA_HOME}/x-pack && node scripts/functional_test_runner --config test/api_integration/config.ts'
 
-  alias start-integration-de-basic='cd ${KIBANA_HOME} && node scripts/functional_tests --config x-pack/test/detection_engine_api_integration/basic/config.ts'
-  alias start-integration-server-de-basic='cd ${KIBANA_HOME} && node scripts/functional_tests_server --config x-pack/test/api_integration/config.ts'
-  alias start-integration-runner-de-basic='cd ${KIBANA_HOME} && node scripts/functional_test_runner --config x-pack/test/api_integration/config.ts'
+  alias start-integration-de-basic='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests --config test/detection_engine_api_integration/basic/config.ts'
+  alias start-integration-server-de-basic='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests_server --config test/detection_engine_api_integration/basic/config.ts'
+  alias start-integration-runner-de-basic='cd ${KIBANA_HOME}/x-pack && node scripts/functional_test_runner --config test/detection_engine_api_integration/basic/config.ts'
 
-  alias start-integration-de-trial='cd ${KIBANA_HOME} && node scripts/functional_tests --config x-pack/test/detection_engine_api_integration/security_and_spaces/config.ts'
-  alias start-integration-server-de-trial='cd ${KIBANA_HOME} && node scripts/functional_tests_server --config x-pack/test/detection_engine_api_integration/security_and_spaces/config.ts'
-  alias start-integration-runner-de-trial='cd ${KIBANA_HOME} && node scripts/functional_test_runner --config x-pack/test/detection_engine_api_integration/security_and_spaces/config.ts'
+  # Usage:
+  #   Run a given test file:
+  #   start-integration-runner-de-trial --include test/detection_engine_api_integration/security_and_spaces/tests/create_ml.ts
+  alias start-integration-de-trial='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests --config test/detection_engine_api_integration/security_and_spaces/config.ts'
+  alias start-integration-server-de-trial='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests_server --config test/detection_engine_api_integration/security_and_spaces/config.ts'
+  alias start-integration-runner-de-trial='cd ${KIBANA_HOME}/x-pack && node scripts/functional_test_runner --config test/detection_engine_api_integration/security_and_spaces/config.ts'
 
-  alias start-integration-lists='cd ${KIBANA_HOME} && node scripts/functional_tests --config x-pack/test/lists_api_integration/security_and_spaces/config.ts'
-  alias start-integration-server-lists='cd ${KIBANA_HOME} && node scripts/functional_tests_server --config x-pack/test/lists_api_integration/security_and_spaces/config.ts'
-  alias start-integration-runner-lists='cd ${KIBANA_HOME} && node scripts/functional_test_runner --config x-pack/test/lists_api_integration/security_and_spaces/config.ts'
+  # TODO: clean up the scripts for integration tests
+  alias start-integration-server-debug='cd ${KIBANA_HOME}/x-pack && node --inspect-brk scripts/functional_tests_server.js --config test/detection_engine_api_integration/security_and_spaces/config.ts'
+
+  alias start-integration-lists='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests --config test/lists_api_integration/security_and_spaces/config.ts'
+  alias start-integration-server-lists='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests_server --config test/lists_api_integration/security_and_spaces/config.ts'
+  alias start-integration-runner-lists='cd ${KIBANA_HOME}/x-pack && node scripts/functional_test_runner --config test/lists_api_integration/security_and_spaces/config.ts'
 
   # Start cypress
   alias start-cypress='cd ${KIBANA_HOME}/${PLUGIN_PATH} && yarn cypress:run-as-ci'

@@ -24,7 +24,6 @@ echo "Homebrew :: Adding taps"
 brew tap homebrew/cask-fonts
 brew tap homebrew/cask-drivers
 brew tap homebrew/cask-versions
-brew tap elastic/tap
 
 echo "Homebrew :: Updating"
 brew update
@@ -97,9 +96,9 @@ nvm install 14.17.6         # Kibana
 nvm install 16.11.1         # Kibana
 nvm install 16.13.0         # Kibana
 nvm install 16.13.2         # Kibana
-nvm install 16.14.2         # Kibana current
-nvm alias default 16.14.2
-nvm use default
+nvm install 16.14.2         # Kibana
+nvm install 16.16.0         # Kibana current
+nvm alias default 16.16.0 && nvm use default
 nvm ls
 
 # Yarn
@@ -154,10 +153,10 @@ brew install --cask ngrok               # ?
 brew install --cask gpg-suite           # ?
 brew install --cask suspicious-package  # ?
 
-brew install elastic/tap/auditbeat-full     # https://www.elastic.co/guide/en/beats/auditbeat/current/auditbeat-installation-configuration.html
-brew install elastic/tap/filebeat-full      # https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html
-brew install elastic/tap/metricbeat-full    # https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-installation-configuration.html
-brew install elastic/tap/packetbeat-full    # https://www.elastic.co/guide/en/beats/packetbeat/current/packetbeat-installation-configuration.html
+brew install auditbeat     # https://www.elastic.co/guide/en/beats/auditbeat/current/auditbeat-installation-configuration.html
+brew install filebeat      # https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html
+brew install metricbeat    # https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-installation-configuration.html
+brew install packetbeat    # https://www.elastic.co/guide/en/beats/packetbeat/current/packetbeat-installation-configuration.html
 
 # ------------------------------------------------------------------------------
 # Install other apps

@@ -97,11 +97,21 @@ nvm install 16.11.1         # Kibana
 nvm install 16.13.0         # Kibana
 nvm install 16.13.2         # Kibana
 nvm install 16.14.2         # Kibana
-nvm install 16.16.0         # Kibana current
-nvm alias default 16.16.0 && nvm use default
+nvm install 16.16.0         # Kibana
+nvm install 16.17.1         # Kibana
+nvm install 16.18.1         # Kibana
+nvm install 16.19.0         # Kibana
+nvm install 16.19.1         # Kibana current
+nvm alias default 16.19.1 && nvm use default
 nvm ls
 
+# How to upgrade to a newer Node version:
+# nvm install 18.13.0 --reinstall-packages-from=16
+# nvm alias default 18.13.0 && nvm use default
+
 # Yarn
+# It's now shipped with Node and here we disable it to be able to install via brew
+corepack disable # https://github.com/nodejs/corepack
 brew install yarn
 
 # Misc languages
@@ -117,6 +127,7 @@ brew install lsd                        # https://github.com/Peltoche/lsd
 brew install bat                        # https://github.com/sharkdp/bat
 brew install lolcat                     # https://github.com/busyloop/lolcat
 brew install neofetch                   # https://github.com/dylanaraps/neofetch
+brew install hey                        # https://github.com/rakyll/hey
 brew install httpie                     # ?
 brew install mitmproxy                  # ?
 brew install mtr                        # ?
@@ -152,11 +163,6 @@ brew install --cask wireshark           # ?
 brew install --cask ngrok               # ?
 brew install --cask gpg-suite           # ?
 brew install --cask suspicious-package  # ?
-
-brew install auditbeat     # https://www.elastic.co/guide/en/beats/auditbeat/current/auditbeat-installation-configuration.html
-brew install filebeat      # https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html
-brew install metricbeat    # https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-installation-configuration.html
-brew install packetbeat    # https://www.elastic.co/guide/en/beats/packetbeat/current/packetbeat-installation-configuration.html
 
 # ------------------------------------------------------------------------------
 # Install other apps

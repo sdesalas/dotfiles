@@ -18,6 +18,8 @@ export PATH="/usr/local/sbin:$PATH"
 # Here we're adding symlinks python -> python3 to the PATH.
 export PATH="/usr/local/opt/python@3.9/libexec/bin:$PATH"
 
+export PATH="$DEV_HOME/elastic-package:$PATH"
+
 # ------------------------------------------------------------------------------
 # Aliases
 

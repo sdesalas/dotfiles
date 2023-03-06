@@ -65,23 +65,14 @@ kibana-init() {
 
   # Start api integration tests
   # Kibana running for integration tests: http://localhost:5620/
-  alias start-integration='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests --config test/api_integration/config.ts'
-  alias start-integration-server='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests_server --config test/api_integration/config.ts'
-  alias start-integration-runner='cd ${KIBANA_HOME}/x-pack && node scripts/functional_test_runner --config test/api_integration/config.ts'
-
-  alias start-integration-de-basic='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests --config test/detection_engine_api_integration/basic/config.ts'
-  alias start-integration-server-de-basic='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests_server --config test/detection_engine_api_integration/basic/config.ts'
-  alias start-integration-runner-de-basic='cd ${KIBANA_HOME}/x-pack && node scripts/functional_test_runner --config test/detection_engine_api_integration/basic/config.ts'
-
-  # Usage:
-  #   Run a given test file:
-  #   start-integration-runner-de-trial --include test/detection_engine_api_integration/security_and_spaces/tests/create_ml.ts
-  alias start-integration-de-trial='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests --config test/detection_engine_api_integration/security_and_spaces/config.ts'
-  alias start-integration-server-de-trial='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests_server --config test/detection_engine_api_integration/security_and_spaces/config.ts'
-  alias start-integration-runner-de-trial='cd ${KIBANA_HOME}/x-pack && node scripts/functional_test_runner --config test/detection_engine_api_integration/security_and_spaces/config.ts'
-
-  # TODO: clean up the scripts for integration tests
-  alias start-integration-server-debug='cd ${KIBANA_HOME}/x-pack && node --inspect-brk scripts/functional_tests_server.js --config test/detection_engine_api_integration/security_and_spaces/config.ts'
+  # Basic license
+  #   cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests_server --config x-pack/test/detection_engine_api_integration/basic/config.ts
+  #   cd ${KIBANA_HOME}/x-pack && node scripts/functional_test_runner --config x-pack/test/detection_engine_api_integration/basic/config.ts --include x-pack/test/detection_engine_api_integration/basic/tests/find_rules.ts
+  # Trial license
+  #   cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests_server --config x-pack/test/detection_engine_api_integration/security_and_spaces/group1/config.ts
+  #   cd ${KIBANA_HOME}/x-pack && node scripts/functional_test_runner --config x-pack/test/detection_engine_api_integration/security_and_spaces/group1/config.ts --include x-pack/test/detection_engine_api_integration/security_and_spaces/group1/create_threat_matching.ts
+  # Debug mode for the test server
+  #   cd ${KIBANA_HOME}/x-pack && node --inspect-brk scripts/functional_tests_server.js --config test/detection_engine_api_integration/security_and_spaces/config.ts
 
   alias start-integration-lists='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests --config test/lists_api_integration/security_and_spaces/config.ts'
   alias start-integration-server-lists='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests_server --config test/lists_api_integration/security_and_spaces/config.ts'
@@ -94,23 +85,21 @@ kibana-init() {
   alias start-cypress-run='cd ${KIBANA_HOME}/${PLUGIN_PATH} && yarn cypress:run'
   alias start-cypress-ci='cd ${KIBANA_HOME}/${PLUGIN_PATH} && yarn cypress:run-as-ci'
 
+  # Use resolver_generator script to generate fake source events from Endpoint Security
+  alias seed-endpoint-data='cd ${KIBANA_HOME} && node x-pack/plugins/security_solution/scripts/endpoint/resolver_generator.js --node http://elastic:changeme@127.0.0.1:9200 --kibana http://elastic:changeme@0.0.0.0:5601/kbn --numHosts=5 --numDocs=2'
+
   # Open ES Archiver Saved Index -- e.g. es-archiver filebeat/default
   alias es-archiver='f() { cd ${KIBANA_HOME}/x-pack && node ../scripts/es_archiver edit $1/default ;};f'
 
   # Start Backporting a PR merged w/ main
   alias start-backport='cd ${KIBANA_HOME} && node scripts/backport'
 
-  # Doc Building Aliases
-  alias build_docs='$DEV_HOME/docs/build_docs'
-
-  # stack-docs
-  alias docbldsec='build_docs --asciidoctor --doc $DEV_HOME/stack-docs/docs/en/$PLUGIN_NAME/index.asciidoc --chunk 1'
-
-  # kibana docs
-  alias docbldkbx='build_docs --doc ${KIBANA_HOME}/docs/index.asciidoc --chunk 1'
-
-  # Delete node_modules and caches
-  alias start-burn-the-world='cd ${KIBANA_HOME} && git clean -fdx -e \.idea\/ -e config\/ && rm -rf node_modules && yarn cache clean'
+  # These docs are for the internal [Plugin API docs](https://docs.elastic.dev/kibana-dev-docs/api/securitySolution),
+  # which describe all the different Kibana Plugin's exported members and client/server interface. They're used mostly
+  # by Kibana developers for when needing to interact with other plugins. They're generated (and checked in) by a daily
+  # buildkite build, or can be built manually via the command below. Metrics for a plugin's documented exports are
+  # provided in the monthly developer newsletter as well.
+  alias start_build_api_docs='cd ${KIBANA_HOME} && node scripts/build_api_docs --plugin securitysolution --stats comments'
 
   # Sync kibana
   alias sync-kibana='cd ${KIBANA_HOME} && git checkout main && git fetch upstream && git merge upstream/main && git push origin main'

@@ -17,16 +17,20 @@ export BUILD_TS_REFS_CACHE_ENABLE=true
 kibana-init() {
   export KIBANA_VERSION=${1:-main}
   export KIBANA_HOME="$CODE_HOME/elastic/kibana-$KIBANA_VERSION"
+  export ES_DATA_HOME="$DEV_HOME/elastic/es-data-$KIBANA_VERSION"
   export PLUGIN_NAME="security_solution"
   export PLUGIN_PATH="x-pack/plugins/${PLUGIN_NAME}"
   export ELASTIC_XPACK_SIEM_LISTS_FEATURE=true
+
+  # Delete the folder with Elasticsearch database
+  alias clean-es-data='rm -rf $ES_DATA_HOME'
 
   # Start bootstrap process because something in package.json changed
   alias start-bootstrap='cd ${KIBANA_HOME} && yarn kbn bootstrap && node scripts/build_kibana_platform_plugins'
 
   # Start Elasticsearch
-  alias start-es='cd ${KIBANA_HOME} && yarn es snapshot --license trial -E xpack.security.authc.api_key.enabled=true -E path.data=$DEV_HOME/es-data'
-  alias start-es-for-endpoint='cd ${KIBANA_HOME} && yarn es snapshot --license trial -E xpack.security.authc.api_key.enabled=true -E path.data=$DEV_HOME/es-data -E network.host="0.0.0.0" -E discovery.type="single-node" -E xpack.security.enabled=true'
+  alias start-es='cd ${KIBANA_HOME} && yarn es snapshot --license trial -E xpack.security.authc.api_key.enabled=true -E path.data=${ES_DATA_HOME}'
+  alias start-es-for-endpoint='cd ${KIBANA_HOME} && yarn es snapshot --license trial -E xpack.security.authc.api_key.enabled=true -E path.data=${ES_DATA_HOME} -E network.host="0.0.0.0" -E discovery.type="single-node" -E xpack.security.enabled=true'
 
   # Start Kibana
   alias start-kibana='cd ${KIBANA_HOME} && yarn start'
@@ -79,11 +83,8 @@ kibana-init() {
   alias start-integration-runner-lists='cd ${KIBANA_HOME}/x-pack && node scripts/functional_test_runner --config test/lists_api_integration/security_and_spaces/config.ts'
 
   # Start cypress
-  alias start-cypress='cd ${KIBANA_HOME}/${PLUGIN_PATH} && yarn cypress:run-as-ci'
+  alias start-cypress-open='cd ${KIBANA_HOME}/${PLUGIN_PATH} && yarn cypress:open'
   alias start-cypress-spec='f() { cd ${KIBANA_HOME}/${PLUGIN_PATH} && yarn cypress:run-as-ci --spec "**/$1" ;};f'
-  alias start-cypress-open='cd ${KIBANA_HOME}/${PLUGIN_PATH} && yarn cypress:open-as-ci'
-  alias start-cypress-run='cd ${KIBANA_HOME}/${PLUGIN_PATH} && yarn cypress:run'
-  alias start-cypress-ci='cd ${KIBANA_HOME}/${PLUGIN_PATH} && yarn cypress:run-as-ci'
 
   # Use resolver_generator script to generate fake source events from Endpoint Security
   alias seed-endpoint-data='cd ${KIBANA_HOME} && node x-pack/plugins/security_solution/scripts/endpoint/resolver_generator.js --node http://elastic:changeme@127.0.0.1:9200 --kibana http://elastic:changeme@0.0.0.0:5601/kbn --numHosts=5 --numDocs=2'
@@ -103,6 +104,11 @@ kibana-init() {
 
   # Sync kibana
   alias sync-kibana='cd ${KIBANA_HOME} && git checkout main && git fetch upstream && git merge upstream/main && git push origin main'
+
+  # A few commands for bash to aid in your code searches.
+  # Paste the result of ownerpaths into your vscode "files to include" field to search all files we own.
+  alias codeowners='cd ${KIBANA_HOME} && cat .github/CODEOWNERS | grep "security-solution\|detections-response\|security-solution-platform" | cut -d" " -f1 | sed "s@^/@@" | uniq'
+  alias ownerpaths='codeowners | paste -sd "," -'
 }
 
 kbn() {

@@ -190,7 +190,7 @@ brew install --cask slack
 brew install --cask skype
 brew install --cask telegram
 
-brew install --cask google-backup-and-sync
+brew install --cask google-drive
 brew install --cask adobe-acrobat-reader
 brew install --cask megasync
 brew install --cask 1password6

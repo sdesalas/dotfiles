@@ -139,14 +139,9 @@ brew install fzf                        # https://github.com/junegunn/fzf
 $(brew --prefix)/opt/fzf/install
 
 brew install --cask iterm2              # ?
-
 brew install --cask visual-studio-code  # ?
-brew install --cask jetbrains-toolbox   # ?
 brew install --cask typora              # ?
-
 brew install --cask gitkraken           # ?
-brew install --cask sourcetree          # ?
-brew install --cask gitify              # ?
 
 brew install --cask docker              # ?
 brew install --cask google-cloud-sdk    # ?
@@ -157,14 +152,11 @@ brew install terraform                  # ?
 brew install vault                      # https://www.vaultproject.io/
 
 brew install --cask dash                # ?
-brew install --cask robo-3t             # ?
-brew install --cask browserstacklocal   # ?
 brew install --cask postman             # ?
 brew install --cask insomnia            # ?
 brew install --cask http-toolkit        # https://httptoolkit.tech/
 brew install --cask charles             # ?
 brew install --cask wireshark           # ?
-brew install --cask ngrok               # ?
 brew install --cask gpg-suite           # ?
 brew install --cask suspicious-package  # ?
 
@@ -173,8 +165,6 @@ brew install --cask suspicious-package  # ?
 
 brew install --cask commander-one
 brew install --cask ticktick
-brew install --cask pomello
-brew install --cask notion
 brew install --cask numi
 brew install --cask purevpn
 
@@ -193,19 +183,13 @@ brew install --cask telegram
 brew install --cask google-drive
 brew install --cask adobe-acrobat-reader
 brew install --cask megasync
-brew install --cask 1password6
 brew install --cask calibre
-brew install --cask deepl
-brew install --cask grammarly
-brew install --cask pluralsight
-brew install --cask puush
 brew install --cask qbittorrent
 brew install --cask recordit
 brew install --cask keycastr                  # https://github.com/keycastr/keycastr
 brew install --cask vlc
 brew install --cask logitech-options
 brew install --cask native-access
-brew install --cask splice
 
 # ------------------------------------------------------------------------------
 # Restore apps' configurations
@@ -218,3 +202,20 @@ brew install mackup
 # Cleanup Brew packages
 
 brew cleanup
+
+# ------------------------------------------------------------------------------
+# Packages to uninstall
+brew uninstall --cask splice
+brew uninstall --cask puush
+brew uninstall --cask pluralsight
+brew uninstall --cask grammarly
+brew uninstall --cask deepl
+brew uninstall --cask 1password6
+brew uninstall --cask pomello
+brew uninstall --cask notion
+brew uninstall --cask ngrok               # ?
+brew uninstall --cask robo-3t             # ?
+brew uninstall --cask browserstacklocal   # ?
+brew uninstall --cask gitify              # ?
+brew uninstall --cask sourcetree          # ?
+brew uninstall --cask jetbrains-toolbox   # ?

@@ -205,20 +205,3 @@ brew install mackup
 # Cleanup Brew packages
 
 brew cleanup
-
-# ------------------------------------------------------------------------------
-# Packages to uninstall
-brew uninstall --cask splice
-brew uninstall --cask puush
-brew uninstall --cask pluralsight
-brew uninstall --cask grammarly
-brew uninstall --cask deepl
-brew uninstall --cask 1password6
-brew uninstall --cask pomello
-brew uninstall --cask notion
-brew uninstall --cask ngrok               # ?
-brew uninstall --cask robo-3t             # ?
-brew uninstall --cask browserstacklocal   # ?
-brew uninstall --cask gitify              # ?
-brew uninstall --cask sourcetree          # ?
-brew uninstall --cask jetbrains-toolbox   # ?

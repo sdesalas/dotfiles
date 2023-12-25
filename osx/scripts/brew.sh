@@ -104,9 +104,12 @@ nvm install 16.19.0         # Kibana
 nvm install 16.19.1         # Kibana
 nvm install 16.20.1         # Kibana
 nvm install 18.17.0         # Kibana
-nvm install 18.17.1         # Kibana current
-nvm alias default 18.17.1 && nvm use default
-# nvm reinstall-packages 18.17.0
+nvm install 18.17.1         # Kibana
+nvm install 18.18.2         # Kibana
+nvm install 20.9.0          # Kibana current
+# nvm alias default 20.9.0 && nvm use default
+nvm alias default 18.18.2 && nvm use default
+# nvm reinstall-packages 18.18.2
 nvm ls
 
 # How to upgrade to a newer Node version:

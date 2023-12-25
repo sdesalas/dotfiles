@@ -190,6 +190,7 @@ brew install --cask calibre
 brew install --cask qbittorrent
 brew install --cask recordit
 brew install --cask keycastr                  # https://github.com/keycastr/keycastr
+brew install --cask logitech-options
 brew install --cask vlc
 brew install --cask native-access
 

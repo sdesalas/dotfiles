@@ -78,21 +78,6 @@ fi
 
 # Node
 nvm install stable
-nvm install 8.6             # Balkan
-nvm install 10.15.3         # MSB
-nvm install 10.22.1         # Kibana
-nvm install 12.18.1         # MSB
-nvm install 12.19.1         # Kibana
-nvm install 14.15.1         # Kibana
-nvm install 14.15.2         # Kibana
-nvm install 14.15.3         # Kibana
-nvm install 14.15.4         # Kibana
-nvm install 14.16.0         # Kibana
-nvm install 14.16.1         # Kibana
-nvm install 14.17.0         # Kibana
-nvm install 14.17.3         # Kibana
-nvm install 14.17.5         # Kibana
-nvm install 14.17.6         # Kibana
 nvm install 16.11.1         # Kibana
 nvm install 16.13.0         # Kibana
 nvm install 16.13.2         # Kibana
@@ -106,10 +91,10 @@ nvm install 16.20.1         # Kibana
 nvm install 18.17.0         # Kibana
 nvm install 18.17.1         # Kibana
 nvm install 18.18.2         # Kibana
-nvm install 20.9.0          # Kibana current
-# nvm alias default 20.9.0 && nvm use default
-nvm alias default 18.18.2 && nvm use default
-# nvm reinstall-packages 18.18.2
+nvm install 20.10.0         # Kibana
+nvm install 20.11.1         # Kibana current
+nvm alias default 20.11.1 && nvm use default
+# nvm reinstall-packages 20.10.0
 nvm ls
 
 # How to upgrade to a newer Node version:

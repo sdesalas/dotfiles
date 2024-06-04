@@ -127,6 +127,7 @@ brew install mitmproxy                  # ?
 brew install mtr                        # ?
 brew install fzf                        # https://github.com/junegunn/fzf
 $(brew --prefix)/opt/fzf/install
+brew install pandoc                     # https://pandoc.org/index.html
 
 brew install --cask iterm2              # ?
 brew install --cask visual-studio-code  # ?
@@ -153,6 +154,7 @@ brew install --cask suspicious-package  # ?
 # ------------------------------------------------------------------------------
 # Install other apps
 
+brew install bitwarden
 brew install --cask commander-one
 brew install --cask ticktick
 brew install --cask numi

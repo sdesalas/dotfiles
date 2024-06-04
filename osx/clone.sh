@@ -3,6 +3,9 @@
 # http://redsymbol.net/articles/unofficial-bash-strict-mode/
 set -euo pipefail
 
+# Show hidden files
+defaults write com.apple.finder AppleShowAllFiles TRUE;killall Finder
+
 mkdir -p ~/Code
 cd ~/Code
 

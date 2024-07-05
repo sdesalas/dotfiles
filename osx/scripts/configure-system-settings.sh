@@ -1,6 +1,26 @@
 #!/usr/bin/env bash
 
 # ------------------------------------------------------------------------------
+# Information
+
+# https://pawelgrzybek.com/change-macos-user-preferences-via-command-line/
+# https://github.com/pawelgrzybek/dotfiles/blob/master/setup-macos.sh
+# https://github.com/mathiasbynens/dotfiles/blob/master/.macos
+
+# ------------------------------------------------------------------------------
+# Prepare
+
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+osascript -e 'tell application "System Preferences" to quit'
+
+# Ask for the administrator password upfront
+sudo -v
+
+# Keep-alive: update existing `sudo` timestamp until the script has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# ------------------------------------------------------------------------------
 # General
 
 # System Preferences > General > Click in the scroll bar to > Jump to the spot that's clicked
@@ -131,3 +151,12 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+
+# ------------------------------------------------------------------------------
+# Kill affected applications
+
+for app in "Dock" \
+    "Finder" \
+    "SystemUIServer"; do
+    killall "${app}" > /dev/null 2>&1
+done

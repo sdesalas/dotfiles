@@ -1,6 +1,9 @@
 [include]
-	path = ~/Code/dotfiles/osx/configs/git/.gitconfig-common.properties
-[includeIf "gitdir:~/Code/elastic/"]
-	path = ~/Code/dotfiles/osx/configs/git/.gitconfig-elastic.properties
-[includeIf "gitdir:~/Code/msb/"]
-	path = ~/Code/dotfiles/osx/configs/git/.gitconfig-msb.properties
+	path = ~/Code/dotfiles/osx/configs/git/.gitconfig
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[core]
+	symlinks = false

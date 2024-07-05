@@ -13,6 +13,9 @@ export PATH="$HOME/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 
+# Homebrew doesn't add itself to PATH out of the box
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Python 2 has been removed from MacOS, and no python binary is available now.
 # Python 3 from Homebrew is a python3 binary and needs to be aliased as python.
 # Here we're adding symlinks python -> python3 to the PATH.

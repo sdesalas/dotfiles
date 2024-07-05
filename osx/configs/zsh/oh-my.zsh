@@ -12,7 +12,8 @@ POWERLEVEL9K_MODE='nerdfont-complete'
 # https://github.com/zsh-users/antigen
 
 # As installed via Homebrew
-source /usr/local/share/antigen/antigen.zsh
+# source /usr/local/share/antigen/antigen.zsh
+source /opt/homebrew/share/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library
 antigen use oh-my-zsh
@@ -21,15 +22,13 @@ antigen use oh-my-zsh
 # https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins-Overview
 antigen bundle brew
 antigen bundle command-not-found
-antigen bundle docker
-antigen bundle docker-compose
+# antigen bundle docker
+# antigen bundle docker-compose
 antigen bundle git
 antigen bundle node
 antigen bundle npm
 antigen bundle nvm
 antigen bundle osx
-antigen bundle sbt
-antigen bundle scala
 antigen bundle yarn
 
 # Other bundles

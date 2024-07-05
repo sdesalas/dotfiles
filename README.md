@@ -2,8 +2,6 @@
 
 Just a bunch of personal dotfiles for MacOS and Windows.
 
-Mac:
+Setup instructions:
 
-```sh
-curl -o- https://raw.githubusercontent.com/banderror/dotfiles/master/osx/clone.sh | bash
-```
+- [MacOS](./osx/setup.md)

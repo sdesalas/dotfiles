@@ -11,8 +11,9 @@ nvm install 18.18.2         # Kibana
 nvm install 20.10.0         # Kibana
 nvm install 20.11.1         # Kibana
 nvm install 20.12.2         # Kibana
-nvm install 20.13.1         # Kibana current
+nvm install 20.13.1         # Kibana
+nvm install 20.15.1         # Kibana current
 
-nvm alias default 20.13.1 && nvm use default
-# nvm reinstall-packages 20.12.2
+nvm alias default 20.15.1 && nvm use default
+# nvm reinstall-packages 20.13.1
 nvm ls

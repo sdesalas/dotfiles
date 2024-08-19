@@ -36,3 +36,4 @@ brew install --cask bitwarden                   # https://bitwarden.com/
 brew install --cask ticktick                    # https://ticktick.com/
 brew install --cask obsidian                    # https://obsidian.md/
 brew install --cask numi                        # https://numi.app/
+brew install --cask alfred                      # https://www.alfredapp.com/

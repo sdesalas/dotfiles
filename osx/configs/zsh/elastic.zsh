@@ -30,8 +30,7 @@ kibana-init() {
   alias start-kibana-serverless='cd ${KIBANA_HOME} && yarn serverless-security'
 
   # Generate fake source events from Endpoint Security to be able to quickly generate detection alerts
-  # node x-pack/plugins/security_solution/scripts/endpoint/resolver_generator.js --node http://elastic:changeme@127.0.0.1:9200 --kibana http://elastic:changeme@0.0.0.0:5601/kbn --numHosts=5 --numDocs=2
-  alias seed-endpoint-data='cd ${KIBANA_HOME}/x-pack/plugins/security_solution && yarn test:generate --numHosts=5 --numDocs=2'
+  alias seed-endpoint-data='cd ${KIBANA_HOME}/x-pack/plugins/security_solution && yarn test:generate --node http://elastic:changeme@127.0.0.1:9200 --kibana http://elastic:changeme@0.0.0.0:5601/kbn --numHosts=5 --numDocs=2'
   alias seed-endpoint-data-serverless='cd ${KIBANA_HOME}/x-pack/plugins/security_solution && yarn test:generate:serverless-dev --numHosts=5 --numDocs=2'
 
   # Check the code for type errors using TypeScript

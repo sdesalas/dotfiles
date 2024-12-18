@@ -13,7 +13,7 @@ kibana-init() {
   export KIBANA_VERSION=${1:-main}
   export KIBANA_HOME="$CODE_HOME/elastic/kibana-$KIBANA_VERSION"
   export ES_DATA_HOME="$DEV_HOME/elastic/es-data-$KIBANA_VERSION"
-  export PLUGIN_PATH="x-pack/plugins/security_solution"
+  export PLUGIN_PATH="x-pack/solutions/security/plugins/security_solution"
 
   # Delete the folder with Elasticsearch database
   alias clean-es-data='rm -rf $ES_DATA_HOME'
@@ -30,8 +30,8 @@ kibana-init() {
   alias start-kibana-serverless='cd ${KIBANA_HOME} && yarn serverless-security'
 
   # Generate fake source events from Endpoint Security to be able to quickly generate detection alerts
-  alias seed-endpoint-data='cd ${KIBANA_HOME}/x-pack/plugins/security_solution && yarn test:generate --node http://elastic:changeme@127.0.0.1:9200 --kibana http://elastic:changeme@0.0.0.0:5601/kbn --numHosts=5 --numDocs=2'
-  alias seed-endpoint-data-serverless='cd ${KIBANA_HOME}/x-pack/plugins/security_solution && yarn test:generate:serverless-dev --numHosts=5 --numDocs=2'
+  alias seed-endpoint-data='cd ${KIBANA_HOME}/x-pack/solutions/security/plugins/security_solution && yarn test:generate --node http://elastic:changeme@127.0.0.1:9200 --kibana http://elastic:changeme@0.0.0.0:5601/kbn --numHosts=5 --numDocs=2'
+  alias seed-endpoint-data-serverless='cd ${KIBANA_HOME}/x-pack/solutions/security/plugins/security_solution && yarn test:generate:serverless-dev --numHosts=5 --numDocs=2'
 
   # Check the code for type errors using TypeScript
   alias start-type-check='cd ${KIBANA_HOME} && node scripts/type_check.js --project tsconfig.json ${PLUGIN_PATH}'
@@ -49,7 +49,7 @@ kibana-init() {
   alias start-deps-check='cd ${KIBANA_HOME} && node scripts/find_plugins_with_circular_deps'
 
   # Work with unit tests (Jest)
-  # Run a single file with unit tests in watch mode: test-tdd x-pack/plugins/security_solution/path/to/my/file.test.ts
+  # Run a single file with unit tests in watch mode: test-tdd x-pack/solutions/security/plugins/security_solution/path/to/my/file.test.ts
   alias test-tdd='f() { TESTS_PATH=${1:-""}; cd ${KIBANA_HOME} && node x-pack/scripts/jest.js $TESTS_PATH --watch -o; };f'
 
   # Work with API integration tests (FTR)

@@ -115,6 +115,7 @@ defaults write com.apple.systemuiserver menuExtras -array \
 
 # Use list view in all Finder windows by default
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
+# https://macos-defaults.com/finder/fxpreferredviewstyle.html
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
 # Show hidden files by default

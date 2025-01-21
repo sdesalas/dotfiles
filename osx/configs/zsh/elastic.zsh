@@ -2,7 +2,7 @@
 # Vault (secrets storage)
 # https://github.com/elastic/infra/blob/master/docs/vault/README.md
 
-export VAULT_ADDR=https://secrets.elastic.co:8200
+export VAULT_ADDR=https://secrets.elastic.co
 
 # ------------------------------------------------------------------------------
 # Kibana and Security Solution (SIEM)
@@ -51,18 +51,21 @@ kibana-init() {
   # Work with unit tests (Jest)
   # Run a single file with unit tests in watch mode: test-tdd x-pack/solutions/security/plugins/security_solution/path/to/my/file.test.ts
   alias test-tdd='f() { TESTS_PATH=${1:-""}; cd ${KIBANA_HOME} && node x-pack/scripts/jest.js $TESTS_PATH --watch -o; };f'
+  alias debug-tdd='f() { TESTS_PATH=${1:-""}; cd ${KIBANA_HOME} && node --inspect-brk x-pack/scripts/jest.js --runInBand $TESTS_PATH --watch -o; };f'
 
   # Work with API integration tests (FTR)
+  #
+  # Start test server:
+  #   cd ${KIBANA_HOME} && node x-pack/scripts/functional_tests_server --config x-pack/test/security_solution_api_integration/test_suites/path/to/config.ts
+  # Start test runner for a particular test file:
+  #   cd ${KIBANA_HOME} && node x-pack/scripts/functional_test_runner --config x-pack/test/security_solution_api_integration/test_suites/path/to/config.ts --include x-pack/test/security_solution_api_integration/test_suites/path/to/test.ts
+  #
+  # Debug mode for the test server:
+  #   cd ${KIBANA_HOME} && node --inspect-brk x-pack/scripts/functional_tests_server --config x-pack/test/security_solution_api_integration/test_suites/path/to/config.ts
 
-  # Kibana running for integration tests: http://localhost:5620/
-  # Basic license
-  #   cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests_server --config x-pack/test/detection_engine_api_integration/basic/config.ts
-  #   cd ${KIBANA_HOME}/x-pack && node scripts/functional_test_runner --config x-pack/test/detection_engine_api_integration/basic/config.ts --include x-pack/test/detection_engine_api_integration/basic/tests/find_rules.ts
-  # Trial license
-  #   cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests_server --config x-pack/test/detection_engine_api_integration/security_and_spaces/group1/config.ts
-  #   cd ${KIBANA_HOME}/x-pack && node scripts/functional_test_runner --config x-pack/test/detection_engine_api_integration/security_and_spaces/group1/config.ts --include x-pack/test/detection_engine_api_integration/security_and_spaces/group1/create_threat_matching.ts
-  # Debug mode for the test server
-  #   cd ${KIBANA_HOME}/x-pack && node --inspect-brk scripts/functional_tests_server.js --config test/detection_engine_api_integration/security_and_spaces/config.ts
+  # node x-pack/scripts/functional_tests_server --config x-pack/test/security_solution_api_integration/test_suites/detections_response/rules_management/prebuilt_rules/management/trial_license_complete_tier/configs/ess.config.ts
+
+  # node x-pack/scripts/functional_test_runner --config x-pack/test/security_solution_api_integration/test_suites/detections_response/rules_management/prebuilt_rules/management/trial_license_complete_tier/configs/ess.config.ts --include x-pack/test/security_solution_api_integration/test_suites/detections_response/rules_management/prebuilt_rules/management/trial_license_complete_tier/bootstrap_prebuilt_rules.ts
 
   alias test-integration-lists='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests --config test/lists_api_integration/security_and_spaces/config.ts'
   alias test-integration-server-lists='cd ${KIBANA_HOME}/x-pack && node scripts/functional_tests_server --config test/lists_api_integration/security_and_spaces/config.ts'

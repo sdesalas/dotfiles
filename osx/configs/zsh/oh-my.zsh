@@ -22,8 +22,8 @@ antigen use oh-my-zsh
 # https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins-Overview
 antigen bundle brew
 antigen bundle command-not-found
-# antigen bundle docker
-# antigen bundle docker-compose
+antigen bundle docker
+antigen bundle docker-compose
 antigen bundle git
 antigen bundle node
 antigen bundle npm

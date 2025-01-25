@@ -11,7 +11,11 @@ sudo -v
 
 echo "Homebrew :: Installing"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Make sure brew is in PATH during the script execution
+eval "$(/usr/local/bin/brew shellenv)"      # Intel Mac
+# eval "$(/opt/homebrew/bin/brew shellenv)"   # Apple Silicon Mac
+
 echo
 
 # ------------------------------------------------------------------------------

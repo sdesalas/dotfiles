@@ -4,7 +4,8 @@
 set -euo pipefail
 
 # Make sure brew is in PATH during the script execution
-eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(/usr/local/bin/brew shellenv)"      # Intel Mac
+# eval "$(/opt/homebrew/bin/brew shellenv)"   # Apple Silicon Mac
 
 # brew install --cask logitech-options
 brew install --cask logi-options-plus       # https://www.logitech.com/en-us/software/logi-options-plus.html

@@ -23,7 +23,6 @@ brew install httpie                     # https://httpie.io/cli
 brew install mitmproxy                  # https://mitmproxy.org/
 brew install mtr                        # https://www.bitwizard.nl/mtr/
 brew install pandoc                     # https://pandoc.org/index.html
-brew install neofetch                   # https://github.com/dylanaraps/neofetch
 
 # Cloud-native CLI tools
 brew install vault                      # https://www.vaultproject.io/

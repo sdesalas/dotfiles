@@ -26,7 +26,7 @@ brew install pandoc                     # https://pandoc.org/index.html
 
 # Cloud-native CLI tools
 brew install vault                      # https://www.vaultproject.io/
-brew install terraform                  # https://www.terraform.io/
+# brew install terraform                  # https://www.terraform.io/
 # brew install google-cloud-sdk           # https://cloud.google.com/sdk/
 # brew install awscli                     # ?
 # brew install aws-iam-authenticator      # ?

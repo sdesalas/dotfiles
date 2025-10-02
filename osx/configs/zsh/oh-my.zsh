@@ -2,6 +2,8 @@
 # Powerlevel9k (or Powerlevel10k) ZSH theme
 # https://github.com/bhilburn/powerlevel9k#prompt-customization
 
+echo "Loading - oh-my.zsh"
+
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs time newline status)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true

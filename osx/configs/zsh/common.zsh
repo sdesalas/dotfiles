@@ -1,6 +1,8 @@
 # ------------------------------------------------------------------------------
 # Folders
 
+echo "Loading - common.zsh"
+
 export DEV_HOME="$HOME/Dev"
 export CODE_HOME="$HOME/Code"
 export DOTFILES_HOME="$CODE_HOME/dotfiles"
@@ -14,13 +16,14 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 
 # Homebrew doesn't add itself to PATH out of the box
-eval "$(/usr/local/bin/brew shellenv)"      # Intel Mac
+# eval "$(/usr/local/bin/brew shellenv)"      # Intel Mac
 # eval "$(/opt/homebrew/bin/brew shellenv)"   # Apple Silicon Mac
 
 # Python 2 has been removed from MacOS, and no python binary is available now.
 # Python 3 from Homebrew is a python3 binary and needs to be aliased as python.
 # Here we're adding symlinks python -> python3 to the PATH.
-export PATH="/usr/local/opt/python@3.9/libexec/bin:$PATH"
+
+#export PATH="/usr/local/opt/python@3.9/libexec/bin:$PATH"
 
 export PATH="$DEV_HOME/elastic-package:$PATH"
 
@@ -34,3 +37,7 @@ alias lt='ls --tree'
 
 alias dotf="$DOTFILES_HOME"
 alias dotfp="$DOTFILES_PRIVATE_HOME"
+
+header() {
+    echo "       ▪▪▪▪▪▪▪▪▪▪▪▪ [ $@ ] ▪▪▪▪▪▪▪▪▪▪▪▪"
+}

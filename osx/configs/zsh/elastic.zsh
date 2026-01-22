@@ -31,18 +31,23 @@ kibana-init() {
   KIBANA_PORTS[2nd]=5602
   KIBANA_PORTS[3rd]=5603
   KIBANA_PORTS[4th]=5604
-  KIBANA_PORTS["9.0"]=5605
-  KIBANA_PORTS["9.1"]=5606
+  KIBANA_PORTS[5th]=5605
+  KIBANA_PORTS["9.0"]=5606
+  KIBANA_PORTS["9.1"]=5607
   ES_PORTS[main]=9200
   ES_PORTS[2nd]=9201
   ES_PORTS[3rd]=9202
   ES_PORTS[4th]=9203
-  ES_PORTS["9.0"]=9204
-  ES_PORTS["9.1"]=9205
+  ES_PORTS[5th]=9204
+  ES_PORTS["9.0"]=9205
+  ES_PORTS["9.1"]=9206
   KIBANA_DEV_PORT=${KIBANA_PORTS[$KIBANA_VERSION]:-5601}
   KIBANA_PROXY_PORT=$((KIBANA_DEV_PORT + 10))
   ES_DEV_PORT=${ES_PORTS[$KIBANA_VERSION]:-9200}
   ES_TRANSPORT_PORT=$((ES_DEV_PORT + 100))
+
+  # Update nvm
+  nvm use
 
   # Output some useful info
   echo "KIBANA_HOME=${KIBANA_HOME}"
@@ -146,6 +151,9 @@ kibana-init() {
 
   alias fts87='node x-pack/scripts/functional_tests_server --config x-pack/solutions/security/test/security_solution_api_integration/test_suites/detections_response/rules_management/rule_management/basic_license_essentials_tier/configs/ess.config.ts'
   alias ftr87='node scripts/functional_test_runner --bail --config x-pack/solutions/security/test/security_solution_api_integration/test_suites/detections_response/rules_management/rule_management/basic_license_essentials_tier/configs/ess.config.ts'
+
+  alias fts105='node x-pack/scripts/functional_tests_server --config x-pack/solutions/security/test/security_solution_api_integration/test_suites/detections_response/rules_management/prebuilt_rules/common/configs/ess_basic_license.config.ts'
+  alias ftr105='node scripts/functional_test_runner --bail --config x-pack/solutions/security/test/security_solution_api_integration/test_suites/detections_response/rules_management/prebuilt_rules/common/configs/ess_basic_license.config.ts'
 
   # Extra stuff
   alias pr-files-by-owner='f() { (cd ${CODE_HOME}/elastic/kibana-operations/triage && node ./code-owners.js "$@"); unset -f f; }; f'

@@ -29,6 +29,7 @@ export PATH="/usr/local/sbin:$PATH"
 #export PATH="/usr/local/opt/python@3.9/libexec/bin:$PATH"
 
 export PATH="$DEV_HOME/elastic-package:$PATH"
+export PATH="$HOME/.local/bin:$PATH" # <-- claude
 
 # ------------------------------------------------------------------------------
 # Aliases

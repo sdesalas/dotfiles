@@ -32,15 +32,20 @@ kibana-init() {
   KIBANA_PORTS[3rd]=5603
   KIBANA_PORTS[4th]=5604
   KIBANA_PORTS[5th]=5605
-  KIBANA_PORTS["9.0"]=5606
-  KIBANA_PORTS["9.1"]=5607
+  KIBANA_PORTS[6th]=5606
+  KIBANA_PORTS[7th]=5607
+  KIBANA_PORTS["9.0"]=5608
+  KIBANA_PORTS["9.1"]=5609
+
   ES_PORTS[main]=9200
   ES_PORTS[2nd]=9201
   ES_PORTS[3rd]=9202
   ES_PORTS[4th]=9203
   ES_PORTS[5th]=9204
-  ES_PORTS["9.0"]=9205
-  ES_PORTS["9.1"]=9206
+  ES_PORTS[6th]=9205
+  ES_PORTS[7th]=9206
+  ES_PORTS["9.0"]=9207
+  ES_PORTS["9.1"]=9208
   KIBANA_DEV_PORT=${KIBANA_PORTS[$KIBANA_VERSION]:-5601}
   KIBANA_PROXY_PORT=$((KIBANA_DEV_PORT + 10))
   ES_DEV_PORT=${ES_PORTS[$KIBANA_VERSION]:-9200}
@@ -56,16 +61,17 @@ kibana-init() {
   echo "KIBANA_PROXY_PORT=${KIBANA_PROXY_PORT}"
   echo "ES_DEV_PORT=${ES_DEV_PORT}"
   echo "ES_TRANSPORT_PORT=${ES_TRANSPORT_PORT}"
+  echo "NODE_OPTIONS=${NODE_OPTIONS}"
 
   # Delete the folder with Elasticsearch database
   alias clean-es-data='echo "Cleaning KIBANA_VERSION=${KIBANA_VERSION}" && rm -rf $ES_DATA_HOME && echo ".. Done!"'
 
   # Start bootstrap process because something in package.json changed
-  alias start-bootstrap='nvm use && yarn kbn bootstrap && node scripts/build_kibana_platform_plugins'
+  alias start-reset='yarn kbn reset'
+  alias start-bootstrap='nvm use && NODE_OPTIONS="--max_old_space_size=8192" yarn kbn bootstrap && NODE_OPTIONS="--max_old_space_size=8192" node scripts/build_kibana_platform_plugins'
   # alias b="header 'ONLY BOOTSTRAPPING \"kibana-$KIBANA_VERSION\" on \"$CURRENT_BRANCH\" branch/version' && start-bootstrap"
   alias start-bes="header 'BOOTSTRAPPING \"kibana-$KIBANA_VERSION\" on \"$CURRENT_BRANCH\" branch/version' && start-bootstrap && header 'STARTING ELASTICSEARCH for \"kibana-$KIBANA_VERSION\" on \"$CURRENT_BRANCH\" branch/version' && start-es"
   alias start-bess="header 'BOOTSTRAPPING \"kibana-$KIBANA_VERSION\" on \"$CURRENT_BRANCH\" branch/version' && start-bootstrap && header 'STARTING ELASTICSEARCH SERVERLESS \"kibana-$KIBANA_VERSION\"  on \"$CURRENT_BRANCH\" branch/version' && start-es-serverless"
-
 
   # Start Elasticsearch
   alias start-es='yarn es snapshot --license trial -E xpack.security.authc.api_key.enabled=true -E path.data=${ES_DATA_HOME} -E http.port=${ES_DEV_PORT} -E transport.port=${ES_TRANSPORT_PORT}'
@@ -89,6 +95,11 @@ kibana-init() {
 
   # Check the code for type errors using TypeScript
   alias start-type-check='node scripts/type_check.js --project tsconfig.json ${PLUGIN_PATH}'
+  alias start-type-check-alerting='node scripts/type_check.js --project x-pack/platform/plugins/shared/alerting/tsconfig.json'
+
+  # Lint with types
+  alias start-lint-with-types='node scripts/eslint_with_types --fix --project ${PLUGIN_PATH}/tsconfig.json'
+  alias start-lint-with-types-alerting='node scripts/eslint_with_types --fix --project x-pack/platform/plugins/shared/alerting/tsconfig.json'
 
   # Check the code for linting errors using ESLint
   alias start-lint='node scripts/eslint.js ${PLUGIN_PATH}'
@@ -105,11 +116,15 @@ kibana-init() {
   # Regenerate types based on OpenAPI schema definitions
   alias start-regenerate-openapi='node scripts/generate_openapi --rootDir ./x-pack/solutions/security/plugins/security_solution'
 
+  # Regenerate moon yml
+  alias start-regenerate-moon='node scripts/regenerate_moon_projects.js --update'
+
  # Work with unit tests (Jest)
   alias ut='f() { TESTS_PATH=${1:-""}; node x-pack/scripts/jest.js $TESTS_PATH -o; };f'
   # Run a single file with unit tests in watch mode: test-tdd x-pack/solutions/security/plugins/security_solution/path/to/my/file.test.ts
   alias test-tdd='f() { TESTS_PATH=${1:-""}; node x-pack/scripts/jest.js $TESTS_PATH --watch -o; };f'
   alias debug-tdd='f() { TESTS_PATH=${1:-""}; node --inspect-brk x-pack/scripts/jest.js --runInBand $TESTS_PATH --watch -o; };f'
+  alias test-tdd-alerting='test-tdd x-pack/platform/plugins/shared/alerting/'
 
   alias test-integration-lists='node ./x-pack/scripts/functional_tests --config ./x-pack/test/lists_api_integration/security_and_spaces/config.ts'
   alias test-integration-server-lists='node ./x-pack/scripts/functional_tests_server --config ./x-pack/test/lists_api_integration/security_and_spaces/config.ts'
@@ -163,6 +178,14 @@ kibana-init() {
   alias pr-files-by-owner='f() { (cd ${CODE_HOME}/elastic/kibana-operations/triage && node ./code-owners.js "$@"); unset -f f; }; f'
   alias precommit='node scripts/precommit_hook.js'
   alias quick-checks='yarn quick-checks'
+
+  alias change-history-to-main='PTH=x-pack/platform/packages/shared/kbn-change-history && rm -rf "../kibana-main/$PTH" && cp -r "./$PTH" "../kibana-main/$PTH"'
+  alias change-history-to-2nd='PTH=x-pack/platform/packages/shared/kbn-change-history && rm -rf "../kibana-2nd/$PTH" && cp -r "./$PTH" "../kibana-2nd/$PTH"'
+  alias change-history-to-3rd='PTH=x-pack/platform/packages/shared/kbn-change-history && rm -rf "../kibana-3rd/$PTH" && cp -r "./$PTH" "../kibana-3rd/$PTH"'
+
+  alias alerting-to-main='PTH=x-pack/platform/plugins/shared/alerting/server && rm -rf "../kibana-main/$PTH" && cp -r "./$PTH" "../kibana-main/$PTH"'
+  alias alerting-to-2nd='PTH=x-pack/platform/plugins/shared/alerting/server && rm -rf "../kibana-2nd/$PTH" && cp -r "./$PTH" "../kibana-2nd/$PTH"'
+  alias alerting-to-3rd='PTH=x-pack/platform/plugins/shared/alerting/server && rm -rf "../kibana-3rd/$PTH" && cp -r "./$PTH" "../kibana-3rd/$PTH"'
 }
 
 # Looks at name of current directory ($PWD) and replaces `kibana-` with empty string.

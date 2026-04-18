@@ -13,7 +13,7 @@ export NVM_DIR="$HOME/.nvm"
 # ------------------------------------------------------------------------------
 # Increase Node.js HEAP size
 
-export NODE_OPTIONS="--max_old_space_size=8192"
+export NODE_OPTIONS="--max_old_space_size=1400"
 
 # ------------------------------------------------------------------------------
 # Setup node version (used when operning terminal in VSCode)

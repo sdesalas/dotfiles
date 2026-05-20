@@ -46,10 +46,10 @@ kibana-init() {
   ES_PORTS[7th]=9206
   ES_PORTS["9.0"]=9207
   ES_PORTS["9.1"]=9208
-  KIBANA_DEV_PORT=${KIBANA_PORTS[$KIBANA_VERSION]:-5601}
-  KIBANA_PROXY_PORT=$((KIBANA_DEV_PORT + 10))
-  ES_DEV_PORT=${ES_PORTS[$KIBANA_VERSION]:-9200}
-  ES_TRANSPORT_PORT=$((ES_DEV_PORT + 100))
+  export KIBANA_DEV_PORT=${KIBANA_PORTS[$KIBANA_VERSION]:-5601}
+  export KIBANA_PROXY_PORT=$((KIBANA_DEV_PORT + 10))
+  export ES_DEV_PORT=${ES_PORTS[$KIBANA_VERSION]:-9200}
+  export ES_TRANSPORT_PORT=$((ES_DEV_PORT + 100))
 
   # Update nvm
   nvm use
@@ -63,11 +63,23 @@ kibana-init() {
   echo "ES_TRANSPORT_PORT=${ES_TRANSPORT_PORT}"
   echo "NODE_OPTIONS=${NODE_OPTIONS}"
 
+
+  show-kibana-branches() {
+    CYAN='\033[0;36m'; RED='\033[0;31m'; RESET='\033[0m'
+    echo ""
+    for dir in ~/Code/sdesalas/kibana-main ~/Code/sdesalas/kibana-2nd ~/Code/sdesalas/kibana-3rd ~/Code/sdesalas/kibana-4th ~/Code/sdesalas/kibana-5th ~/Code/sdesalas/kibana-6th ~/Code/sdesalas/kibana-7th ~/Code/sdesalas/kibana-9.0 ~/Code/sdesalas/kibana-9.1; do
+      foldername=$(basename "$dir")
+      folderbranch=$(git -C "$dir" rev-parse --abbrev-ref HEAD 2>/dev/null || echo "not a git repo")
+      printf "${CYAN}./%s${RESET}  git:(${RED}%s${RESET})\n" "$foldername" "$folderbranch"
+    done
+    echo ""
+  }
+
   # Delete the folder with Elasticsearch database
   alias clean-es-data='echo "Cleaning KIBANA_VERSION=${KIBANA_VERSION}" && rm -rf $ES_DATA_HOME && echo ".. Done!"'
 
   # Start bootstrap process because something in package.json changed
-  alias start-reset='yarn kbn reset'
+  alias start-reset='yarn kbn reset && nvm use && NODE_OPTIONS="--max_old_space_size=8192" yarn kbn bootstrap'
   alias start-bootstrap='nvm use && NODE_OPTIONS="--max_old_space_size=8192" yarn kbn bootstrap && NODE_OPTIONS="--max_old_space_size=8192" node scripts/build_kibana_platform_plugins'
   # alias b="header 'ONLY BOOTSTRAPPING \"kibana-$KIBANA_VERSION\" on \"$CURRENT_BRANCH\" branch/version' && start-bootstrap"
   alias start-bes="header 'BOOTSTRAPPING \"kibana-$KIBANA_VERSION\" on \"$CURRENT_BRANCH\" branch/version' && start-bootstrap && header 'STARTING ELASTICSEARCH for \"kibana-$KIBANA_VERSION\" on \"$CURRENT_BRANCH\" branch/version' && start-es"
@@ -125,6 +137,7 @@ kibana-init() {
   alias test-tdd='f() { TESTS_PATH=${1:-""}; node x-pack/scripts/jest.js $TESTS_PATH --watch -o; };f'
   alias debug-tdd='f() { TESTS_PATH=${1:-""}; node --inspect-brk x-pack/scripts/jest.js --runInBand $TESTS_PATH --watch -o; };f'
   alias test-tdd-alerting='test-tdd x-pack/platform/plugins/shared/alerting/'
+  alias test-tdd-tm='test-tdd x-pack/platform/plugins/shared/task_manager/'
 
   alias test-integration-lists='node ./x-pack/scripts/functional_tests --config ./x-pack/test/lists_api_integration/security_and_spaces/config.ts'
   alias test-integration-server-lists='node ./x-pack/scripts/functional_tests_server --config ./x-pack/test/lists_api_integration/security_and_spaces/config.ts'
@@ -174,10 +187,17 @@ kibana-init() {
   alias fts105='node x-pack/scripts/functional_tests_server --config x-pack/solutions/security/test/security_solution_api_integration/test_suites/detections_response/rules_management/prebuilt_rules/common/configs/ess_basic_license.config.ts'
   alias ftr105='node scripts/functional_test_runner --bail --config x-pack/solutions/security/test/security_solution_api_integration/test_suites/detections_response/rules_management/prebuilt_rules/common/configs/ess_basic_license.config.ts'
 
+  alias fts-alerting-ct-enabled='node x-pack/scripts/functional_tests_server --config x-pack/platform/test/alerting_api_integration/spaces_only/tests/alerting/group6/config_with_change_tracking_enabled.ts'
+  alias ftr-alerting-ct-enabled='node scripts/functional_test_runner --bail --config x-pack/platform/test/alerting_api_integration/spaces_only/tests/alerting/group6/config_with_change_tracking_enabled.ts'
+
+  alias fts-alerting-6='node x-pack/scripts/functional_tests_server --config x-pack/platform/test/alerting_api_integration/spaces_only/tests/alerting/group6/config.ts'
+  alias ftr-alerting-6='node scripts/functional_test_runner --bail --config x-pack/platform/test/alerting_api_integration/spaces_only/tests/alerting/group6/config.ts'
+
   # Extra stuff
   alias pr-files-by-owner='f() { (cd ${CODE_HOME}/elastic/kibana-operations/triage && node ./code-owners.js "$@"); unset -f f; }; f'
   alias precommit='node scripts/precommit_hook.js'
   alias quick-checks='yarn quick-checks'
+  alias check-tasks='/Users/sdesalas/Code/sdesalas/kibana-knowledge/scripts/check-tasks.sh'
 
   alias change-history-to-main='PTH=x-pack/platform/packages/shared/kbn-change-history && rm -rf "../kibana-main/$PTH" && cp -r "./$PTH" "../kibana-main/$PTH"'
   alias change-history-to-2nd='PTH=x-pack/platform/packages/shared/kbn-change-history && rm -rf "../kibana-2nd/$PTH" && cp -r "./$PTH" "../kibana-2nd/$PTH"'
@@ -186,6 +206,47 @@ kibana-init() {
   alias alerting-to-main='PTH=x-pack/platform/plugins/shared/alerting/server && rm -rf "../kibana-main/$PTH" && cp -r "./$PTH" "../kibana-main/$PTH"'
   alias alerting-to-2nd='PTH=x-pack/platform/plugins/shared/alerting/server && rm -rf "../kibana-2nd/$PTH" && cp -r "./$PTH" "../kibana-2nd/$PTH"'
   alias alerting-to-3rd='PTH=x-pack/platform/plugins/shared/alerting/server && rm -rf "../kibana-3rd/$PTH" && cp -r "./$PTH" "../kibana-3rd/$PTH"'
+
+  # QAF
+  alias qaf-show-credentials='qaf elastic-cloud deployments list --show-credentials'
+
+  # Memory profiling
+  alias start-kibana-profiling='node scripts/kibana --dev  --mem-profile --server.basePath="/kbn" --elasticsearch.hosts="http://localhost:${ES_DEV_PORT}" --server.port=${KIBANA_DEV_PORT} --dev.basePathProxyTarget=${KIBANA_PROXY_PORT} > "kibana.output.$(date -u +%Y%m%dT%H%M).txt" 2>&1'
+
+  # killgroup() {
+  #   echo "Parent (PGID: $$) received signal. Killing process group..."
+  #   kill -SIGHUP -$$  # Send SIGHUP to all processes in the group (PGID=$$)
+  #   wait  # Wait for children to exit
+  #   echo "Parent exiting."
+  #   exit 0
+  # }
+
+  # # Memory profiling
+  # start-kibana-profiling() {
+  #   trap killgroup SIGINT SIGTERM
+  #   KBN_MEM_PROFILE=1 node scripts/kibana --dev --server.basePath="/kbn" --elasticsearch.hosts="http://localhost:${ES_DEV_PORT}" --server.port=${KIBANA_DEV_PORT} --dev.basePathProxyTarget=${KIBANA_PROXY_PORT} > "kibana.output.$(date -u +%Y%m%dT%H%M).txt" 2>&1 &
+  #   sleep 5
+  #   node plot_memory_profile_csv.mjs kibana-memory-profile-$(date -u +%Y-%m-%dT%H.%M).csv
+  # }
+
+  # Heap snapshotting
+  alias start-kibana-build='node scripts/build --skip-os-packages --skip-docker-ubi --skip-docker-cloud-fips'
+  alias start-kibana-snapshots='NODE_OPTIONS="--require $(pwd)/packages/kbn-heap-snapshot-analyzer-cli/src/heap_track_preload.js" \
+HEAP_TRACK_FORCE=1 \
+HEAP_TRACK_OUTPUT=/tmp/kibana-tracked-idle.heapsnapshot \
+./build/default/kibana-9.5.0-SNAPSHOT-darwin-aarch64/bin/kibana'
+
+  # Prod-like kibana
+  alias start-kibana-dist='yarn start --dist --server.basePath="/kbn" --elasticsearch.hosts="http://localhost:${ES_DEV_PORT}" --server.port=${KIBANA_DEV_PORT} --dev.basePathProxyTarget=${KIBANA_PROXY_PORT}'
+  #alias start-kibana-build='node scripts/build_kibana_platform_plugins --dist --no-examples'
+  alias start-kibana-serve='KBN_MEM_PROFILE=1 node scripts/kibana serve \
+  --server.basePath="/kbn" \
+  --server.rewriteBasePath=true \
+  --elasticsearch.hosts="http://localhost:${ES_DEV_PORT}" \
+  --elasticsearch.username=kibana_system \
+  --elasticsearch.password=changeme \
+  --server.port="${KIBANA_DEV_PORT}"'
+  alias start-kibana-build-serve='start-kibana-build && start-kibana-serve'
 }
 
 # Looks at name of current directory ($PWD) and replaces `kibana-` with empty string.

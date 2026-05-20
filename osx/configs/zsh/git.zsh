@@ -131,7 +131,6 @@ alias gec='git_edit_config'
 alias glt='git log --graph --abbrev-commit --decorate --first-parent --pretty=short HEAD'
 
 # Commands from Steven
-unalias gl
 gl() { git log --oneline -n ${@:-10} }
 
 # Commands from Jacek

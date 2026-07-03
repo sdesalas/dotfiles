@@ -63,6 +63,7 @@ kibana-init() {
   echo "ES_TRANSPORT_PORT=${ES_TRANSPORT_PORT}"
   echo "NODE_OPTIONS=${NODE_OPTIONS}"
 
+  CURRENT_BRANCH=$(git branch --show-current)
 
   show-kibana-branches() {
     CYAN='\033[0;36m'; RED='\033[0;31m'; RESET='\033[0m'
@@ -79,17 +80,26 @@ kibana-init() {
   alias clean-es-data='echo "Cleaning KIBANA_VERSION=${KIBANA_VERSION}" && rm -rf $ES_DATA_HOME && echo ".. Done!"'
 
   # Start bootstrap process because something in package.json changed
-  alias start-reset='yarn kbn reset && nvm use && NODE_OPTIONS="--max_old_space_size=8192" yarn kbn bootstrap'
-  alias start-bootstrap='nvm use && NODE_OPTIONS="--max_old_space_size=8192" yarn kbn bootstrap && NODE_OPTIONS="--max_old_space_size=8192" node scripts/build_kibana_platform_plugins'
+  alias start-reset='header "RESETTING [kibana-$KIBANA_VERSION]" && yarn kbn reset && nvm use && NODE_OPTIONS="--max_old_space_size=8192" yarn kbn bootstrap'
+  alias start-bootstrap='header "BOOTSTRAPPING [kibana-$KIBANA_VERSION] on [$CURRENT_BRANCH] branch/version" && nvm use && NODE_OPTIONS="--max_old_space_size=8192" yarn kbn bootstrap && NODE_OPTIONS="--max_old_space_size=8192" node scripts/build_kibana_platform_plugins'
   # alias b="header 'ONLY BOOTSTRAPPING \"kibana-$KIBANA_VERSION\" on \"$CURRENT_BRANCH\" branch/version' && start-bootstrap"
-  alias start-bes="header 'BOOTSTRAPPING \"kibana-$KIBANA_VERSION\" on \"$CURRENT_BRANCH\" branch/version' && start-bootstrap && header 'STARTING ELASTICSEARCH for \"kibana-$KIBANA_VERSION\" on \"$CURRENT_BRANCH\" branch/version' && start-es"
-  alias start-bess="header 'BOOTSTRAPPING \"kibana-$KIBANA_VERSION\" on \"$CURRENT_BRANCH\" branch/version' && start-bootstrap && header 'STARTING ELASTICSEARCH SERVERLESS \"kibana-$KIBANA_VERSION\"  on \"$CURRENT_BRANCH\" branch/version' && start-es-serverless"
+  alias start-bes="start-bootstrap && header 'STARTING ELASTICSEARCH for \"kibana-$KIBANA_VERSION\" on \"$CURRENT_BRANCH\" branch/version' && start-es"
+  alias start-bess="start-bootstrap && header 'STARTING ELASTICSEARCH SERVERLESS \"kibana-$KIBANA_VERSION\"  on \"$CURRENT_BRANCH\" branch/version' && start-es-serverless"
+  alias start-ces="clean-es-data && start-es"
+  alias start-cbes="clean-es-data && start-bootstrap && start-es"
 
   # Start Elasticsearch
-  alias start-es='yarn es snapshot --license trial -E xpack.security.authc.api_key.enabled=true -E path.data=${ES_DATA_HOME} -E http.port=${ES_DEV_PORT} -E transport.port=${ES_TRANSPORT_PORT}'
+  alias start-es='header "STARTING ELASTICSEARCH for [kibana-$KIBANA_VERSION] on [$CURRENT_BRANCH] branch/version" && yarn es snapshot --license trial -E xpack.security.authc.api_key.enabled=true -E path.data=${ES_DATA_HOME} -E http.port=${ES_DEV_PORT} -E transport.port=${ES_TRANSPORT_PORT}'
   alias start-es-basic='yarn es snapshot --license basic -E xpack.security.authc.api_key.enabled=true -E path.data=${ES_DATA_HOME} -E http.port=${ES_DEV_PORT} -E transport.port=${ES_TRANSPORT_PORT}'
   alias start-es-no-expensive-queries='yarn es snapshot --license trial -E xpack.security.authc.api_key.enabled=true -E path.data=${ES_DATA_HOME} -E search.allow_expensive_queries=false -E logger.org.elasticsearch.discovery=DEBUG'
   alias start-es-serverless='yarn es serverless --projectType security'
+  alias start-es-11th-may='export ES_SNAPSHOT_MANIFEST="https://storage.googleapis.com/kibana-ci-es-snapshots-daily/9.5.0/archives/20260511-022512_32342fb5/manifest.json" && start-es'
+  alias start-es-12th-may='export ES_SNAPSHOT_MANIFEST="https://storage.googleapis.com/kibana-ci-es-snapshots-daily/9.5.0/archives/20260512-022202_3cd6e1f7/manifest.json" && start-es'
+  alias start-es-13th-may='export ES_SNAPSHOT_MANIFEST="https://storage.googleapis.com/kibana-ci-es-snapshots-daily/9.5.0/archives/20260513-022302_408cc295/manifest.json" && start-es'
+
+  alias set-es-snapshot-11th-may='export ES_SNAPSHOT_MANIFEST="https://storage.googleapis.com/kibana-ci-es-snapshots-daily/9.5.0/archives/20260511-022512_32342fb5/manifest.json"'
+  alias set-es-snapshot-12th-may='export ES_SNAPSHOT_MANIFEST="https://storage.googleapis.com/kibana-ci-es-snapshots-daily/9.5.0/archives/20260512-022202_3cd6e1f7/manifest.json"'
+  alias set-es-snapshot-13th-may='export ES_SNAPSHOT_MANIFEST="https://storage.googleapis.com/kibana-ci-es-snapshots-daily/9.5.0/archives/20260513-022302_408cc295/manifest.json"'
 
   # Start Kibana
   alias start-kibana='yarn start --server.basePath="/kbn" --elasticsearch.hosts="http://localhost:${ES_DEV_PORT}" --server.port=${KIBANA_DEV_PORT} --dev.basePathProxyTarget=${KIBANA_PROXY_PORT}'
@@ -105,13 +115,18 @@ kibana-init() {
   alias seed-endpoint-data='cd ./x-pack/solutions/security/plugins/security_solution && yarn test:generate --node http://elastic:changeme@127.0.0.1:${ES_DEV_PORT} --kibana http://elastic:changeme@0.0.0.0:${KIBANA_DEV_PORT}/kbn --numHosts=5 --numDocs=2 && popd'
   alias seed-endpoint-data-serverless='cd ./x-pack/solutions/security/plugins/security_solution && yarn test:generate:serverless-dev --numHosts=5 --numDocs=2 && popd'
 
+  # Start check
+  alias start-check='node script/check'
+
   # Check the code for type errors using TypeScript
   alias start-type-check='node scripts/type_check.js --project tsconfig.json ${PLUGIN_PATH}'
   alias start-type-check-alerting='node scripts/type_check.js --project x-pack/platform/plugins/shared/alerting/tsconfig.json'
+  alias start-type-check-security='NODE_OPTIONS="--max_old_space_size=8192" NODE_OPTIONS="--max_old_space_size=8192" node scripts/type_check.js --project x-pack/solutions/security/plugins/security_solution/tsconfig.json'
 
   # Lint with types
   alias start-lint-with-types='node scripts/eslint_with_types --fix --project ${PLUGIN_PATH}/tsconfig.json'
   alias start-lint-with-types-alerting='node scripts/eslint_with_types --fix --project x-pack/platform/plugins/shared/alerting/tsconfig.json'
+  alias start-lint-with-types-security='NODE_OPTIONS="--max_old_space_size=8192" node scripts/eslint_with_types --fix --project x-pack/solutions/security/plugins/security_solution/tsconfig.json'
 
   # Check the code for linting errors using ESLint
   alias start-lint='node scripts/eslint.js ${PLUGIN_PATH}'
@@ -138,6 +153,7 @@ kibana-init() {
   alias debug-tdd='f() { TESTS_PATH=${1:-""}; node --inspect-brk x-pack/scripts/jest.js --runInBand $TESTS_PATH --watch -o; };f'
   alias test-tdd-alerting='test-tdd x-pack/platform/plugins/shared/alerting/'
   alias test-tdd-tm='test-tdd x-pack/platform/plugins/shared/task_manager/'
+  alias test-tdd-prebuilt-rules-='test-tdd x-pack/solutions/security/plugins/security_solution/server/lib/detection_engine/prebuilt_rules/api/'
 
   alias test-integration-lists='node ./x-pack/scripts/functional_tests --config ./x-pack/test/lists_api_integration/security_and_spaces/config.ts'
   alias test-integration-server-lists='node ./x-pack/scripts/functional_tests_server --config ./x-pack/test/lists_api_integration/security_and_spaces/config.ts'
@@ -193,7 +209,12 @@ kibana-init() {
   alias fts-alerting-6='node x-pack/scripts/functional_tests_server --config x-pack/platform/test/alerting_api_integration/spaces_only/tests/alerting/group6/config.ts'
   alias ftr-alerting-6='node scripts/functional_test_runner --bail --config x-pack/platform/test/alerting_api_integration/spaces_only/tests/alerting/group6/config.ts'
 
+  alias fts-install-large-bundle='NODE_OPTIONS=--max-old-space-size=8192 node scripts/functional_tests_server --config x-pack/solutions/security/test/security_solution_api_integration/test_suites/detections_response/rules_management/prebuilt_rules/common/configs/edge_cases/ess_air_gapped_with_bundled_large_package.config.ts' # 2>&1 | grep --line-buffered -E '"'"'^\s*proc \[es'"'"''
+  alias ftr-install-large-bundle='NODE_OPTIONS=--max-old-space-size=8192 node scripts/functional_test_runner --bail --config x-pack/solutions/security/test/security_solution_api_integration/test_suites/detections_response/rules_management/prebuilt_rules/common/configs/edge_cases/ess_air_gapped_with_bundled_large_package.config.ts'
+
   # Extra stuff
+  alias mitm-har='mitmdump --mode reverse:http://localhost:9220 --listen-port 9221 --set hardump=./es-traffic.har --set flow_detail=0'
+  alias mitm-har-ssl='mitmdump --mode reverse:https://localhost:9220 --listen-port 9221 --ssl-insecure --set hardump=./es-traffic.har'
   alias pr-files-by-owner='f() { (cd ${CODE_HOME}/elastic/kibana-operations/triage && node ./code-owners.js "$@"); unset -f f; }; f'
   alias precommit='node scripts/precommit_hook.js'
   alias quick-checks='yarn quick-checks'
@@ -209,6 +230,15 @@ kibana-init() {
 
   # QAF
   alias qaf-show-credentials='qaf elastic-cloud deployments list --show-credentials'
+  qaf-deregister() {
+    qaf elastic-cloud deployments deregister ${1}
+  }
+  qaf-remove() {
+    qaf elastic-cloud deployments remove ${1}
+  }
+  qaf-deploy-main-at-commit() {
+    EC_API_TRANSPORT_DELAY_ENABLED="true" EC_AUTOSCALING_ENABLED="false" EC_DEPLOYMENT_NAME="main-at-${1:0:7}" EC_ENV="production" EC_PLAN="sdesalas_security_oom_testing" EC_REGION="gcp-us-west2" EC_SSO_ENABLED="false" KIBANA_DOCKER_IMAGE="docker.elastic.co/kibana-ci/kibana-cloud:9.5.0-SNAPSHOT-${1}" STACK_VERSION="9.5.0-SNAPSHOT" qaf elastic-cloud deployments create
+  }
 
   # Memory profiling
   alias start-kibana-profiling='node scripts/kibana --dev  --mem-profile --server.basePath="/kbn" --elasticsearch.hosts="http://localhost:${ES_DEV_PORT}" --server.port=${KIBANA_DEV_PORT} --dev.basePathProxyTarget=${KIBANA_PROXY_PORT} > "kibana.output.$(date -u +%Y%m%dT%H%M).txt" 2>&1'

@@ -116,7 +116,7 @@ kibana-init() {
   alias seed-endpoint-data-serverless='cd ./x-pack/solutions/security/plugins/security_solution && yarn test:generate:serverless-dev --numHosts=5 --numDocs=2 && popd'
 
   # Start check
-  alias start-check='node script/check'
+  alias start-check='node scripts/check.js'
 
   # Check the code for type errors using TypeScript
   alias start-type-check='node scripts/type_check.js --project tsconfig.json ${PLUGIN_PATH}'

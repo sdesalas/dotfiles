@@ -65,16 +65,8 @@ kibana-init() {
 
   CURRENT_BRANCH=$(git branch --show-current)
 
-  show-kibana-branches() {
-    CYAN='\033[0;36m'; RED='\033[0;31m'; RESET='\033[0m'
-    echo ""
-    for dir in ~/Code/sdesalas/kibana-main ~/Code/sdesalas/kibana-2nd ~/Code/sdesalas/kibana-3rd ~/Code/sdesalas/kibana-4th ~/Code/sdesalas/kibana-5th ~/Code/sdesalas/kibana-6th ~/Code/sdesalas/kibana-7th ~/Code/sdesalas/kibana-9.0 ~/Code/sdesalas/kibana-9.1; do
-      foldername=$(basename "$dir")
-      folderbranch=$(git -C "$dir" rev-parse --abbrev-ref HEAD 2>/dev/null || echo "not a git repo")
-      printf "${CYAN}./%s${RESET}  git:(${RED}%s${RESET})\n" "$foldername" "$folderbranch"
-    done
-    echo ""
-  }
+  alias show-kibana-branches='~/Code/sdesalas/kibana-knowledge/scripts/show-kibana-branches.sh'
+  alias show-kibana-branches-pull='~/Code/sdesalas/kibana-knowledge/scripts/show-kibana-branches.sh --pull'
 
   # Delete the folder with Elasticsearch database
   alias clean-es-data='echo "Cleaning KIBANA_VERSION=${KIBANA_VERSION}" && rm -rf $ES_DATA_HOME && echo ".. Done!"'
@@ -90,9 +82,13 @@ kibana-init() {
 
   # Start Elasticsearch
   alias start-es='header "STARTING ELASTICSEARCH for [kibana-$KIBANA_VERSION] on [$CURRENT_BRANCH] branch/version" && yarn es snapshot --license trial -E xpack.security.authc.api_key.enabled=true -E path.data=${ES_DATA_HOME} -E http.port=${ES_DEV_PORT} -E transport.port=${ES_TRANSPORT_PORT}'
+  alias start-es-no-ml='header "STARTING ELASTICSEARCH for [kibana-$KIBANA_VERSION] on [$CURRENT_BRANCH] branch/version" && yarn es snapshot --license trial -E xpack.security.authc.api_key.enabled=true -E xpack.ml.enabled=false -E path.data=${ES_DATA_HOME} -E http.port=${ES_DEV_PORT} -E transport.port=${ES_TRANSPORT_PORT}'
   alias start-es-basic='yarn es snapshot --license basic -E xpack.security.authc.api_key.enabled=true -E path.data=${ES_DATA_HOME} -E http.port=${ES_DEV_PORT} -E transport.port=${ES_TRANSPORT_PORT}'
   alias start-es-no-expensive-queries='yarn es snapshot --license trial -E xpack.security.authc.api_key.enabled=true -E path.data=${ES_DATA_HOME} -E search.allow_expensive_queries=false -E logger.org.elasticsearch.discovery=DEBUG'
-  alias start-es-serverless='yarn es serverless --projectType security'
+  alias start-es-source='header "STARTING ELASTICSEARCH for [kibana-$KIBANA_VERSION] on [$CURRENT_BRANCH] branch/version" && yarn es source --license trial -E xpack.security.authc.api_key.enabled=true -E path.data=${ES_DATA_HOME} -E http.port=${ES_DEV_PORT} -E transport.port=${ES_TRANSPORT_PORT}'
+  alias start-es-serverless='yarn es serverless --projectType security --port=${ES_DEV_PORT}'
+  alias start-es-serverless-no-ssl='yarn es serverless --projectType=security --no-ssl --clean --kill'
+  alias start-es-unverified-snapshot='KBN_ES_SNAPSHOT_USE_UNVERIFIED=1 yarn es snapshot --license trial -E xpack.security.authc.api_key.enabled=true -E path.data=${ES_DATA_HOME} -E http.port=${ES_DEV_PORT} -E transport.port=${ES_TRANSPORT_PORT}'
   alias start-es-11th-may='export ES_SNAPSHOT_MANIFEST="https://storage.googleapis.com/kibana-ci-es-snapshots-daily/9.5.0/archives/20260511-022512_32342fb5/manifest.json" && start-es'
   alias start-es-12th-may='export ES_SNAPSHOT_MANIFEST="https://storage.googleapis.com/kibana-ci-es-snapshots-daily/9.5.0/archives/20260512-022202_3cd6e1f7/manifest.json" && start-es'
   alias start-es-13th-may='export ES_SNAPSHOT_MANIFEST="https://storage.googleapis.com/kibana-ci-es-snapshots-daily/9.5.0/archives/20260513-022302_408cc295/manifest.json" && start-es'
@@ -102,10 +98,14 @@ kibana-init() {
   alias set-es-snapshot-13th-may='export ES_SNAPSHOT_MANIFEST="https://storage.googleapis.com/kibana-ci-es-snapshots-daily/9.5.0/archives/20260513-022302_408cc295/manifest.json"'
 
   # Start Kibana
+  alias start-bk='start-bootstrap && start-kibana'
   alias start-kibana='yarn start --server.basePath="/kbn" --elasticsearch.hosts="http://localhost:${ES_DEV_PORT}" --server.port=${KIBANA_DEV_PORT} --dev.basePathProxyTarget=${KIBANA_PROXY_PORT}'
-  alias start-kibana-serverless='yarn serverless-security'
+  alias start-kibana-serverless='yarn serverless-security --server.port=${KIBANA_DEV_PORT} --elasticsearch.hosts=https://localhost:${ES_DEV_PORT} --dev.basePathProxyTarget=${KIBANA_PROXY_PORT}'
+  alias start-kibana-serverlesst-to-normal-es='yarn serverless-security --server.port=${KIBANA_DEV_PORT} --elasticsearch.hosts=http://localhost:${ES_DEV_PORT} --dev.basePathProxyTarget=${KIBANA_PROXY_PORT}'
   alias debug-kibana='yarn debug --elasticsearch.hosts="http://localhost:${ES_DEV_PORT}" --server.port=${KIBANA_DEV_PORT} --server.basePath="/kbn" --dev.basePathProxyTarget=${KIBANA_PROXY_PORT}'
   alias debug-break-kibana='yarn debug-break --elasticsearch.hosts="http://localhost:${ES_DEV_PORT}" --server.port=5601 --server.basePath="/kbn" --dev.basePathProxyTarget=${KIBANA_PROXY_PORT}'
+  alias get-kibana-pid='lsof -nP -iTCP:${KIBANA_DEV_PORT} -sTCP:LISTEN'
+  alias kill-kibana-pid='kill -9 $(lsof -nP -tiTCP:${KIBANA_DEV_PORT} -sTCP:LISTEN) 2>/dev/null'
 
   alias fe="header 'STARTING \"kibana-$KIBANA_VERSION\" on \"$CURRENT_BRANCH\" branch/version' && start-kibana"
   alias fes="header 'STARTING SERVERLESS \"kibana-$KIBANA_VERSION\" on \"$CURRENT_BRANCH\" branch/version' && start-kibana-serverless"
